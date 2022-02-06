@@ -1,0 +1,45 @@
+.login-page{
+
+    display: flex;
+
+    &-login,
+    &-signin{
+        flex: 1;
+        margin: 25px;
+        border: solid 1px gray;
+        border-radius: 8px;
+        padding: 20px;
+    }
+  
+   
+    input {
+        width: 100%;
+        border-radius: 8px;
+        border: none;
+        margin: 4px 0;
+        display: inline-block;
+        height: 40px;
+        outline-color: gray;
+        padding-left: 8px;
+    }
+
+    button {
+        width: 100%;
+        border-radius: 8px;
+        border: none;
+        outline: none;
+        margin: 4px 0;
+        display: inline-block;
+        height: 40px;
+        box-shadow: gray 0 0 5px;
+        cursor: pointer;
+
+        &:hover{
+            box-shadow: gray 0 0 3px;
+        }
+        &:active{
+            box-shadow: gray 0 0 1px;
+        }
+    }
+    
+}
