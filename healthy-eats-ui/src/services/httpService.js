@@ -10,10 +10,15 @@ class _HttpService {
 
         method = method.toUpperCase();
 
+        let url;
+        if (path.startsWith('/')) {
+            url = new URL(apiServiceUrl);
+            url.port = apiServicePort;
+            url.pathname = path;
+        } else {
+            url = new URL(path);
+        }
 
-        let url = new URL(apiServiceUrl);
-        url.port = apiServicePort;
-        url.pathname = path;
 
         for (let param in searchParams) {
             url.searchParams.set(param, searchParams[param]);
