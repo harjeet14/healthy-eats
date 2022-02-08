@@ -8,6 +8,9 @@ class _HttpService {
 
     async fetchData(path, method, bodyData, searchParams = {}, headers = {}) {
 
+        searchParams = searchParams || {};
+        headers = headers || {};
+
         method = method.toUpperCase();
 
         let url;
@@ -15,10 +18,12 @@ class _HttpService {
             url = new URL(apiServiceUrl);
             url.port = apiServicePort;
             url.pathname = path;
+
+            headers['Content-Type'] = "application/json";
+
         } else {
             url = new URL(path);
         }
-
 
         for (let param in searchParams) {
             url.searchParams.set(param, searchParams[param]);
@@ -26,7 +31,8 @@ class _HttpService {
 
         let config = {
             method,
-            headers: { ...{ "Content-Type": "application/json" }, ...headers }
+            mode: "cors",
+            headers: headers
         }
 
         if (bodyData && (method === 'POST' || method === 'PUT')) {
