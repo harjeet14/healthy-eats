@@ -1,11 +1,14 @@
 import { useState } from 'react';
 import { getFirstOfMonth, getFirstOfWeek, dayNames, getMonthWeeks, addMonths, getMonthName } from '../../../services/calendarService'
+import { OrderModal } from '../orderModal/orderModal';
 import './calendar.scss'
 import { CalendarRow } from './calendarRow';
 
 export function Calendar() {
 
     let [current, setCurrent] = useState(new Date());
+    let [showOrderModal, setShowOrderModal] = useState(false);
+    let [selectedDate, setSelectedDate] = useState(null);
 
 
     let fom = getFirstOfMonth(current);
@@ -33,9 +36,30 @@ export function Calendar() {
         </div>
 
         <div className="calendar-header-row">
-            {days.map((day, index) => <div className="calendar-header-row-cell">{dayNames[index]}</div>)}
+            {days.map((day, index) => <div key={`headerCell-${index}`} className="calendar-header-row-cell">{dayNames[index]}</div>)}
         </div>
 
-        {weeks.map((week, index) => <CalendarRow startOfWeek={week} key={`week-${index}`} />)}
+        {weeks.map((week, index) => <CalendarRow currentMonth={current} startOfWeek={week} key={`week-${index}`}
+            onDayClick={(date) => {
+                setSelectedDate(date);
+                setShowOrderModal(true);
+            }} />)}
+
+        {showOrderModal &&
+            <OrderModal
+                selectedDate={selectedDate}
+                onClose={() => {
+                    setSelectedDate(null);
+                    setShowOrderModal(false);
+                }}
+
+                onSubmit={(selected) => {
+                    setSelectedDate(null);
+                    setShowOrderModal(false);
+                    alert('Thank you');
+                    console.log(selected);
+                }}
+            />
+        }
     </div>
 }

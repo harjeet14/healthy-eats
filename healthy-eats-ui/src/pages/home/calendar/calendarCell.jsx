@@ -1,19 +1,14 @@
-import { getMonthName } from '../../../services/calendarService'
+export function CalendarCell({ date, currentMonth, onClick }) {
 
-
-export function CalendarCell({ date }) {
-
+    const isCurrentMonth = date.getMonth() === currentMonth.getMonth();
     const day = date.getDate();
-    const monthName = getMonthName(date);
-
-    const show = day + "  " + monthName + "  " + date.getFullYear();
 
     const r1 = Math.random() < 0.5;
     const r2 = Math.random() < 0.5;
     const r3 = Math.random() < 0.5;
     const r4 = Math.random() < 0.5;
 
-    return <div className="calendar-row-cell" onClick={() => alert(show)}>
+    return <div className={`calendar-row-cell ${isCurrentMonth ? "" : "otherMonth"}`} onClick={() => onClick(date)}>
         <div className="calendar-row-cell-header">
             <span className="calendar-row-cell-header-date">{day}</span>
         </div>

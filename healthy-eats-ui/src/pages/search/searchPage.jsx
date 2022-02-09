@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { RecipeCard } from "../../pages/recipes/recipeCard";
-import HttpService from "../../services/httpService";
+import FoodService from "../../services/foodService";
 import './searchPage.scss'
 
 export function SearchPage() {
@@ -8,10 +8,10 @@ export function SearchPage() {
   const [searchTerm, setsearchTerm] = useState("");
   const [recipes, setRecipes] = useState([]);
 
-  const fetchRecipes = function (params) {
-    HttpService.get('https://www.themealdb.com/api/json/v1/1/search.php', { s: searchTerm })
+  const fetchRecipes = function () {
+    FoodService.getRecipes(searchTerm)
       .then(res => {
-        setRecipes(res?.meals ?? []);
+        setRecipes(res);
       });
   };
 
