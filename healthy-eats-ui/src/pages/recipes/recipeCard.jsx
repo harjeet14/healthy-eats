@@ -1,9 +1,8 @@
-// import { UnderConstruction } from "../../components/underConstruction/underConstruction";
 import './recipeCard.scss'
 
 export function RecipeCard({ recipe }) {
-  return <div className="home-meal" key={recipe.idMeal}>
-    <img src={recipe.strMealThumb} alt={recipe.strMeal} />
-    <h4>{recipe.strMeal}</h4>
+  return <div className="home-meal" key={recipe.foodId}>
+    <img src={recipe.foodImage} alt={recipe.foodTitle} />
+    <h4>{recipe.foodTitle}</h4>
   </div>
 }

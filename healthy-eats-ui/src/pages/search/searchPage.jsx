@@ -27,7 +27,7 @@ export function SearchPage() {
       </div>
       <div className="search-page-grid">
 
-        {recipes.map((recipe, index) => <RecipeCard key={`recipe-${recipe.idMeal}`}
+        {recipes.map((recipe, index) => <RecipeCard key={`recipe-${recipe.foodId}`}
           recipe={recipe}
         />
         )}

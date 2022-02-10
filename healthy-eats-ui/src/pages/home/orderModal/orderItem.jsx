@@ -1,6 +1,8 @@
 export function OrderItem({ orderData, onClick }) {
-    return <div className="orderItem" title={orderData.strMeal} onClick={() => onClick(orderData)}>
-        <img className="orderItem-thumb" src={orderData.strMealThumb} alt={orderData.strMeal} />
-        <span className="orderItem-title" >{orderData.strMeal}</span>
+    return <div className="orderItem" title={orderData.foodTitle} onClick={() => onClick(orderData)}>
+        <span className="orderItem-calories"> Cal: {orderData.calories}</span>
+        <img className="orderItem-thumb" src={orderData.foodImage} alt={orderData.foodTitle} />
+        <span className="orderItem-title" >{orderData.foodTitle}</span>
+
     </div>
 }

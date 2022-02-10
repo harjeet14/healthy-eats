@@ -82,9 +82,9 @@ function MealContent({ onSelect, onDeselect, title, selectedFoods }) {
         <div className="orderModal-content-body-row">
             <div className="orderModal-content-body-row-horizontalList">
 
-                {available.map((orderData) => <OrderItem key={`orderItem-${orderData.idMeal}`} orderData={orderData}
+                {available.map((orderData) => <OrderItem key={`orderItem-${orderData.foodId}`} orderData={orderData}
                     onClick={(item) => {
-                        if (selectedFoods.find(x => x.idMeal === item.idMeal)) {
+                        if (selectedFoods.find(x => x.foodId === item.foodId)) {
                             alert("You already have it")
                         } else {
                             onSelect([...selectedFoods, item]);
@@ -105,10 +105,9 @@ function MealContent({ onSelect, onDeselect, title, selectedFoods }) {
         <div className="orderModal-content-body-row">
             <div className="orderModal-content-body-row-horizontalList">
 
-                {selectedFoods.map((orderData) => <OrderItem key={`orderItem-${orderData.idMeal}`} orderData={orderData}
-
+                {selectedFoods.map((orderData) => <OrderItem key={`orderItem-${orderData.foodId}`} orderData={orderData}
                     onClick={(item) => {
-                        var newItems = selectedFoods.filter(it => it.idMeal !== item.idMeal)
+                        var newItems = selectedFoods.filter(it => it.foodId !== item.foodId)
                         onDeselect([...newItems]);
                     }}
                 />)}
