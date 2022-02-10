@@ -13,29 +13,53 @@
     background: center;
     background-color: rgba(0,0,0,0.7);
     
-}
+    .modal{
+        background: #fff;
+        height: fit;
+        z-index: 10;
+        border-radius: 5px;
+        overflow: hidden;
+        margin-top: var(--marginVerticalsm);
+        width:1000px;
+        font-size: 19px;
 
-.modal{
-    background: #fff;
-    height: fit;
-    width: 500px;
-    z-index: 10;
-    border-radius: 5px;
-    overflow: hidden;
-    margin-top: var(--marginVerticalsm);
+    
+    
+        form{
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
 
-    form{
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-start;
-        align-items: center;
-        
-        input{
-            margin:5px;
+            .ingredients{
+                display: flex;
+                flex-direction: row;
+                justify-content: space-evenly;
+                align-items: center;
+
+                .servings-num{
+                    width:100px;
+                }
+
+                input{
+                    
+                    width:200px;
+                }
+            }
+            
+            input{
+                margin:5px;
+                width:400px;
+                height: 10px;
+    
+            }
         }
+      
     }
-  
+    
 }
+
+
 
 
   

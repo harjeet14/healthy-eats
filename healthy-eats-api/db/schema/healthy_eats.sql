@@ -34,7 +34,6 @@ CREATE TABLE created_recipes(
   recipeDescription VARCHAR(255) NOT NULL,
   recipePrice numeric,
   recipeImageUrls VARCHAR(255) NOT NULL,
-  recipeCreator VARCHAR(255),
   createdAt date NOT NULL,
   avgRating SMALLINT NOT NULL DEFAULT 0
 );
