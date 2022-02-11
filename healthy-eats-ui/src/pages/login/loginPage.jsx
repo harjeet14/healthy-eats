@@ -20,7 +20,6 @@ export function LoginPage() {
             </div>
 
             <button className="login-page-button" onClick={async () => {
-                debugger;
                 if (loginEmail && loginPass) {
                     const user = await UserService.authenticateUser(loginEmail, loginPass);
 
