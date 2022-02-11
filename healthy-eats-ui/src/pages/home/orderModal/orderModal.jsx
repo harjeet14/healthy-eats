@@ -5,12 +5,16 @@ import { OrderItem } from "./orderItem";
 
 import './orderModal.scss';
 
-export function OrderModal({ selectedDate, onClose, onSubmit }) {
+export function OrderModal({ dayData, selectedDate, onClose, onSubmit }) {
+
+    const breakfasts = (dayData?.detail || []).filter(it => it.meal === 'B');
+    const lunches = (dayData?.detail || []).filter(it => it.meal === 'L');
+    const diners = (dayData?.detail || []).filter(it => it.meal === 'D');
 
 
-    const [breakfast, setBreakfast] = useState([]);
-    const [lunch, setLunch] = useState([]);
-    const [dinner, setDinner] = useState([]);
+    const [breakfast, setBreakfast] = useState(breakfasts);
+    const [lunch, setLunch] = useState(lunches);
+    const [dinner, setDinner] = useState(diners);
 
     const title = `${getDayName(selectedDate)} ${getMonthName(selectedDate)} ${selectedDate.getDate()}, ${selectedDate.getFullYear()}`;
 

@@ -1,5 +1,6 @@
-import { useState } from 'react';
-import { getFirstOfMonth, getFirstOfWeek, dayNames, getMonthWeeks, addMonths, getMonthName } from '../../../services/calendarService'
+import { useEffect, useState } from 'react';
+import { getFirstOfMonth, getFirstOfWeek, dayNames, getMonthWeeks, addMonths, getMonthName, getLastOfMonth, getParsableDate } from '../../../services/calendarService'
+import FoodService from '../../../services/foodService';
 import { OrderModal } from '../orderModal/orderModal';
 import './calendar.scss'
 import { CalendarRow } from './calendarRow';
@@ -7,30 +8,49 @@ import { CalendarRow } from './calendarRow';
 export function Calendar() {
 
     let [current, setCurrent] = useState(new Date());
+    let [orderMap, setOrderMap] = useState(new Date());
+
+
+    useEffect(() => {
+        const fom = getFirstOfMonth(current);
+        let lastOfMonth = getLastOfMonth(current);
+
+        FoodService.getOrderedItemsMap(fom, lastOfMonth).then((orderMap) => {
+
+            setOrderMap(orderMap);
+        });
+
+    }, [current])
+
     let [showOrderModal, setShowOrderModal] = useState(false);
     let [selectedDate, setSelectedDate] = useState(null);
 
 
-    let fom = getFirstOfMonth(current);
-    let fow = getFirstOfWeek(fom);
+    let firstOfMonth = getFirstOfMonth(current);
 
-    var weeks = getMonthWeeks(fow);
+    let firstOfWeek = getFirstOfWeek(firstOfMonth);
+
+    var weeks = getMonthWeeks(firstOfWeek);
 
     const monthName = getMonthName(current);
 
     const days = [0, 1, 2, 3, 4, 5, 6];
 
+    async function setCalendarData(date) {
+        setCurrent(new Date(date.valueOf()));
+    }
+
     return <div className="calendar">
         <div className="calendar-navigtion">
             <button
-                onClick={() => setCurrent(addMonths(current, -1))}>
+                onClick={async () => await setCalendarData(addMonths(current, -1))}>
                 {'<<'} Prev
             </button>
 
             <span className="calendar-navigtion-monthName">{monthName} - {current.getFullYear()}</span>
 
             <button
-                onClick={() => setCurrent(addMonths(current, 1))}>
+                onClick={async () => await setCalendarData(addMonths(current, 1))}>
                 Next {'>>'}
             </button>
         </div>
@@ -39,7 +59,7 @@ export function Calendar() {
             {days.map((day, index) => <div key={`headerCell-${index}`} className="calendar-header-row-cell">{dayNames[index]}</div>)}
         </div>
 
-        {weeks.map((week, index) => <CalendarRow currentMonth={current} startOfWeek={week} key={`week-${index}`}
+        {weeks.map((week, index) => <CalendarRow orderMap={orderMap} currentMonth={current} startOfWeek={week} key={`week-${index}`}
             onDayClick={(date) => {
                 setSelectedDate(date);
                 setShowOrderModal(true);
@@ -47,17 +67,28 @@ export function Calendar() {
 
         {showOrderModal &&
             <OrderModal
+                dayData={orderMap[getParsableDate(selectedDate)]}
                 selectedDate={selectedDate}
                 onClose={() => {
                     setSelectedDate(null);
                     setShowOrderModal(false);
                 }}
 
-                onSubmit={(selected) => {
-                    setSelectedDate(null);
+                onSubmit={async (selected) => {
+
                     setShowOrderModal(false);
 
-                    console.log(selected);
+                    const payload = {
+                        date: selectedDate,
+                        breakfast: selected.breakfast,
+                        lunch: selected.lunch,
+                        dinner: selected.dinner,
+                        userId: sessionStorage.sessionUserId
+                    };
+
+                    await FoodService.saveDayOrder(payload);
+
+                    setCalendarData(current);
                 }}
             />
         }

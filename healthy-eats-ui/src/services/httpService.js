@@ -1,26 +1,22 @@
-
-import config from '../config';
+import config from "../config";
 
 const apiServiceUrl = config?.apiServiceUrl ?? "http://localhost/";
 const apiServicePort = config?.apiServicePort ?? 8080;
 
 class _HttpService {
-
   async fetchData(path, method, bodyData, searchParams = {}, headers = {}) {
-
     searchParams = searchParams || {};
     headers = headers || {};
 
     method = method.toUpperCase();
 
     let url;
-    if (path.startsWith('/')) {
+    if (path.startsWith("/")) {
       url = new URL(apiServiceUrl);
       url.port = apiServicePort;
       url.pathname = path;
 
-      headers['Content-Type'] = "application/json";
-
+      headers["Content-Type"] = "application/json";
     } else {
       url = new URL(path);
     }
@@ -32,10 +28,10 @@ class _HttpService {
     let config = {
       method,
       mode: "cors",
-      headers: headers
-    }
+      headers: headers,
+    };
 
-    if (bodyData && (method === 'POST' || method === 'PUT')) {
+    if (bodyData && (method === "POST" || method === "PUT")) {
       config.body = JSON.stringify(bodyData);
     }
 
@@ -43,16 +39,16 @@ class _HttpService {
 
     if (response.ok) {
       if (response.status === 200 || response.status === 201) {
-
         let data = await response.json();
         return data;
       } else if (response.status === 204) {
         return null;
       }
 
+      throw new Error(
+        `${response.status} - ${url} - Something went wrong on api server!`
+      );
     }
-    throw new Error('Something went wrong on api server!');
-
   }
 
   get(path, searchParams) {

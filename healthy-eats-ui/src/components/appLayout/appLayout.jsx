@@ -7,7 +7,7 @@ import { RecipesPage } from "../../pages/recipes/recipesPage";
 import { SavedRecipes } from "../../pages/saved/savedRecipes";
 import { SearchPage } from "../../pages/search/searchPage";
 import { AuthenticationGuard } from "../authenticationGuard";
-import { Cart } from "../../pages/cart/cart";
+// import { Cart } from "../../pages/cart/cart";
 import './appLayout.scss'
 
 export function AppLayout({ children }) {
@@ -25,16 +25,9 @@ export function AppLayout({ children }) {
       {sessionStorage.sessionUserFullName && <a href="/login" onClick={(e) => {
         e.preventDefault();
         sessionStorage.sessionUserFullName = '';
-        sessionStorage.sessionUser = 0;
+        sessionStorage.sessionUserId = 0;
         navigate('/')
       }} >Logout</a>}
-
-      {sessionStorage.logedIn && <a href="/login" onClick={(e) => {
-        e.preventDefault();
-        sessionStorage.logedIn = '';
-        navigate('/')
-      }} >Logout</a>}
-
 
     </div>
     <div className="app-layout-content">
@@ -74,10 +67,10 @@ export function AppLayout({ children }) {
             <SavedRecipes />
           </AuthenticationGuard>} />
 
-        <Route path='/cart'
+        {/* <Route path='/cart'
           element={<AuthenticationGuard>
             <Cart />
-          </AuthenticationGuard>} />
+          </AuthenticationGuard>} /> */}
 
       </Routes >
     </div >
