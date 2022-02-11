@@ -9,6 +9,7 @@ export function SearchPage() {
   const [recipes, setRecipes] = useState([]);
 
   const fetchRecipes = function () {
+
     FoodService.getRecipes(searchTerm)
       .then(res => {
         setRecipes(res);
@@ -31,10 +32,7 @@ export function SearchPage() {
           recipe={recipe}
         />
         )}
-
-
         {!recipes.length && <h2>No meals found! Try another word...</h2>}
-
       </div>
     </div>
   );
