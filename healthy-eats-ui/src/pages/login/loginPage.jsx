@@ -24,7 +24,8 @@ export function LoginPage() {
                     const user = await UserService.authenticateUser(loginEmail, loginPass);
 
                     if (user) {
-                        sessionStorage.sessionUser = user.firstName + ' ' + user.lastName;
+                        sessionStorage.sessionUserFullName = user.firstName + ' ' + user.lastName;
+                        sessionStorage.sessionUserId = user.id;
                         setLoginPass('');
                         setLoginEmail('');
                         navigate("/");

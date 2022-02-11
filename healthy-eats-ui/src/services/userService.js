@@ -11,6 +11,7 @@ class _UserService {
       return {
         firstName: data.user.first_name,
         lastName: data.user.last_name,
+        id: data.user.id,
       };
     }
 
