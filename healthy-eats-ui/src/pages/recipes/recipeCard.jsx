@@ -4,7 +4,7 @@ import './recipeCard.scss'
 
 export function RecipeCard({ recipe }) {
 
-  const [strSaveButton, setStrSaveButton] = useState('Save');
+  const [strSaveButton, setStrSaveButton] = useState(recipe.isSaved ? 'Saved' : 'Save');
 
   const saveUnsaveRecipe = function () {
 

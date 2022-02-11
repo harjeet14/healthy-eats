@@ -6,10 +6,8 @@ module.exports = (db) => {
     // if (req.session.user) {
     const recipeId = req.query.recipeId;
     const userId = req.query.userId;
-
     let queryText = `insert into saved_recipes (user_id, recipe_id) values ($1,$2)
-              RETURNING *`;
-
+     RETURNING *`;
     const query = {
       text: queryText,
       values: [
@@ -48,5 +46,23 @@ module.exports = (db) => {
       .catch(err => console.log(err));
   });
 
+  router.get("/userId/:userId", (req, res) => {
+    const userId = req.params.userId;
+    let queryText = `select recipe_id from saved_recipes where user_id = $1`;
+    const query = {
+      text: queryText,
+      values: [
+        userId
+      ]
+    };
+
+    db.query(query)
+      .then(result => {
+        const recipeIds = result.rows;
+        res.status(200).json(recipeIds);
+      })
+      .catch(err => console.log(err));
+  });
+
   return router;
-}
+};
