@@ -1,6 +1,5 @@
 // load .env data into process.env
 require("dotenv").config();
-const cors = require("cors");
 const bodyParser = require("body-parser");
 
 // Web server config
@@ -8,6 +7,7 @@ const PORT = process.env.PORT || 8080;
 const express = require("express");
 const app = express();
 const morgan = require("morgan");
+const cors = require("cors");
 
 // PG database client/connection setup
 const { Pool } = require("pg");
@@ -25,15 +25,27 @@ app.set("view engine", "ejs");
 app.use(express.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
+app.use(express.static("public"));
+
 // Separated Routes for each Resource
 // Note: Feel free to replace the example routes below with your own
-const usersRoute = require("./routes/users");
+const usersRoutes = require("./routes/users");
 const ordersRoute = require("./routes/orders");
-
+const userSavedRecipes = require("./routes/savedRecipes");
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
-app.use("/api/users", usersRoute(db));
+app.use("/api/users", usersRoutes(db));
 app.use("/api/orders", ordersRoute(db));
+app.use("/api/savedRecipes", userSavedRecipes(db));
+// Note: mount other resources here, using the same pattern above
+
+// Home page
+// Warning: avoid creating more routes in this file!
+// Separate them into separate routes files (see above).
+
+app.get("/", (req, res) => {
+  res.render("index");
+});
 
 app.listen(PORT, () => {
   console.log(`The app listening on port ${PORT}`);
