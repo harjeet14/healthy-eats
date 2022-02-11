@@ -3,6 +3,5 @@ export function OrderItem({ orderData, onClick }) {
         <span className="orderItem-calories"> Cal: {orderData.calories}</span>
         <img className="orderItem-thumb" src={orderData.foodImage} alt={orderData.foodTitle} />
         <span className="orderItem-title" >{orderData.foodTitle}</span>
-
     </div>
 }

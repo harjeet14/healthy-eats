@@ -2,7 +2,7 @@ import { Navigate } from "react-router-dom";
 
 export function AuthenticationGuard({ children }) {
 
-    const login = !!sessionStorage.logedIn;
+    const login = !!sessionStorage.sessionUser;
 
     if (!login) {
 

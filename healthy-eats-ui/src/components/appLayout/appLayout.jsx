@@ -13,16 +13,16 @@ export function AppLayout({ children }) {
     const navigate = useNavigate();
     return <div className="app-layout">
         <div className="app-layout-navigation">
-            <Link to="/" >Home</Link>
+            <Link to="/" >{sessionStorage.sessionUser}</Link>
             <Link to="/search" >Search</Link>
             <Link to="/order" >Order</Link>
             <Link to="/recipes" >Recipes</Link>
             <Link to="/history" >History</Link>
-            {!sessionStorage.logedIn && <Link to="/login" >Login</Link>}
+            {!sessionStorage.sessionUser && <Link to="/login" >Login</Link>}
 
-            {sessionStorage.logedIn && <a href="/login" onClick={(e) => {
+            {sessionStorage.sessionUser && <a href="/login" onClick={(e) => {
                 e.preventDefault();
-                sessionStorage.logedIn = '';
+                sessionStorage.sessionUser = '';
                 navigate('/')
             }} >Logout</a>}
 

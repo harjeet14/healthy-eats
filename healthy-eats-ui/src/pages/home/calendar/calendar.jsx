@@ -56,7 +56,7 @@ export function Calendar() {
                 onSubmit={(selected) => {
                     setSelectedDate(null);
                     setShowOrderModal(false);
-                    alert('Thank you');
+
                     console.log(selected);
                 }}
             />
