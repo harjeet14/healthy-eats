@@ -19,11 +19,12 @@ export function OrderModal({ dayData, selectedDate, onClose, onSubmit }) {
     const [calories, setCalories] = useState(0);
 
     useEffect(() => {
-        const b = breakfast.reduce((a, i) => a + i.calories, 0);
-        const l = lunch.reduce((a, i) => a + i.calories, 0);
-        const d = dinner.reduce((a, i) => a + i.calories, 0);
-        const total = Math.trunc((b + l + d) * 1000) / 1000;
-        setCalories(total);
+        const breackfastCal = Math.trunc((breakfast.reduce((a, i) => a + i.calories, 0) * 1000)) / 1000;
+        const lunchCal = Math.trunc((lunch.reduce((a, i) => a + i.calories, 0) * 1000)) / 1000;
+        const dinerCal = Math.trunc((dinner.reduce((a, i) => a + i.calories, 0) * 1000)) / 1000;
+        const totalCal = Math.trunc((breackfastCal + lunchCal + dinerCal) * 1000) / 1000;
+
+        setCalories(totalCal);
     }, [breakfast, lunch, dinner])
 
     const title = `${getDayName(selectedDate)} ${getMonthName(selectedDate)} ${selectedDate.getDate()}, ${selectedDate.getFullYear()}`;
