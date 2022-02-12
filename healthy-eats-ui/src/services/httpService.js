@@ -1,7 +1,7 @@
-import config from "../config";
+import appConfig from "../appConfig";
 
-const apiServiceUrl = config?.apiServiceUrl ?? "http://localhost/";
-const apiServicePort = config?.apiServicePort ?? 8080;
+const apiServiceUrl = appConfig?.apiService?.url ?? "http://localhost/";
+const apiServicePort = appConfig?.apiService?.port ?? 8080;
 
 class _HttpService {
   async fetchData(path, method, bodyData, searchParams = {}, headers = {}) {

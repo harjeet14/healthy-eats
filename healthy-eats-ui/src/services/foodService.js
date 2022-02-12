@@ -1,8 +1,9 @@
+import appConfig from "../appConfig";
 import { getParsableDate } from "./calendarService";
 import HttpService from "./httpService";
 
-const foodApiUrl = "https://api.spoonacular.com/recipes/complexSearch";
-const foodApiToken = "76b3fafbfa594974adeb92a81b9b3130";
+const foodApiUrl = appConfig.foodApi.url;
+const foodApiToken = appConfig.foodApi.key;
 
 class _FoodService {
   async getRecipes(searchClause) {
