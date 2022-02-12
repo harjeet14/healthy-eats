@@ -14,13 +14,12 @@ export function SearchPage() {
 
     HttpService.get('/api/savedRecipes/userId/1', null)
       .then(res => {
-        setSavedRecipes(res);
+        setSavedRecipes(res || []);
       });
 
   }, []);
 
   const fetchRecipes = function () {
-
     FoodService.getRecipes(searchTerm)
       .then(res => {
 

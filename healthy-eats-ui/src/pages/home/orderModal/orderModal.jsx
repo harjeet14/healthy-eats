@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { getDayName, getMonthName } from "../../../services/calendarService";
 import FoodService from "../../../services/foodService";
 import { OrderItem } from "./orderItem";
@@ -16,13 +16,23 @@ export function OrderModal({ dayData, selectedDate, onClose, onSubmit }) {
     const [lunch, setLunch] = useState(lunches);
     const [dinner, setDinner] = useState(diners);
 
+    const [calories, setCalories] = useState(0);
+
+    useEffect(() => {
+        const b = breakfast.reduce((a, i) => a + i.calories, 0);
+        const l = lunch.reduce((a, i) => a + i.calories, 0);
+        const d = dinner.reduce((a, i) => a + i.calories, 0);
+        const total = Math.trunc((b + l + d) * 1000) / 1000;
+        setCalories(total);
+    }, [breakfast, lunch, dinner])
+
     const title = `${getDayName(selectedDate)} ${getMonthName(selectedDate)} ${selectedDate.getDate()}, ${selectedDate.getFullYear()}`;
 
     return <div className="orderModal">
         <div className="orderModal-content">
             <div className="orderModal-content-head">
                 <span>{title}</span>
-                <span onClick={() => onClose()} >Close</span>
+                <span className="orderModal-content-head-button" onClick={() => onClose()} >Close</span>
             </div>
             <div className="orderModal-content-body">
                 <MealContent
@@ -49,8 +59,9 @@ export function OrderModal({ dayData, selectedDate, onClose, onSubmit }) {
                 ></MealContent>
             </div>
             <div className="orderModal-content-head">
-                <span></span>
-                <span onClick={() => onSubmit({ breakfast, lunch, dinner })} >Submit</span>
+                <span className="orderModal-content-body-calories"> Total Calories: {calories}</span>
+
+                <span className="orderModal-content-head-button" onClick={() => onSubmit({ breakfast, lunch, dinner })} >Submit</span>
             </div>
         </div>
     </div>
@@ -61,10 +72,15 @@ function MealContent({ onSelect, onDeselect, title, selectedFoods }) {
     selectedFoods = selectedFoods ?? [];
 
     const [available, setAvailable] = useState([]);
+
+    const cal = selectedFoods.reduce((a, i) => a + i.calories, 0);
+    const mealCal = Math.trunc((cal) * 1000) / 1000;
     return <div >
         <br />
         <div className="orderModal-content-body-row">
-            <h5>What Would You Like To Eat Today For {title}?</h5>
+            <h5 className="orderModal-content-body-row-mealTitle">What Would You Like To Eat Today For {title}?
+                <span className="orderModal-content-body-row-mealTitle-mealCalories"> Calories: {mealCal}</span> </h5>
+
         </div>
         <div className="orderModal-content-body-row">
             <input
