@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { RecipeCard } from "../../pages/recipes/recipeCard";
 import FoodService from "../../services/foodService";
-import HttpService from "../../services/httpService";
+import HealthyEatsApiService from "../../services/healthyEatsApiService";
 import './searchPage.scss'
 
 export function SearchPage() {
@@ -12,7 +12,7 @@ export function SearchPage() {
 
   useEffect(() => {
 
-    HttpService.get('/api/savedRecipes/userId/1', null)
+    HealthyEatsApiService.getSavedRecipes(sessionStorage.sessionUserId)
       .then(res => {
         setSavedRecipes(res || []);
       });
