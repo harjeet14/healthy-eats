@@ -1,60 +1,71 @@
+import appConfig from "../appConfig";
 
-import config from '../config';
-
-const apiServiceUrl = config?.apiServiceUrl ?? "http://locahost/";
-const apiServicePort = config?.apiServicePort ?? 8080;
+const apiServiceUrl = appConfig?.apiService?.url ?? "http://localhost/";
+const apiServicePort = appConfig?.apiService?.port ?? 8080;
 
 class _HttpService {
+  async fetchData(path, method, bodyData, searchParams = {}, headers = {}) {
+    searchParams = searchParams || {};
+    headers = headers || {};
 
-    async fetchData(path, method, bodyData, searchParams = {}, headers = {}) {
+    method = method.toUpperCase();
 
-        method = method.toUpperCase();
+    let url;
+    if (path.startsWith("/")) {
+      url = new URL(apiServiceUrl);
+      url.port = apiServicePort;
+      url.pathname = path;
 
-
-        let url = new URL(apiServiceUrl);
-        url.port = apiServicePort;
-        url.pathname = path;
-
-        for (let param in searchParams) {
-            url.searchParams.set(param, searchParams[param]);
-        }
-
-        let config = {
-            method,
-            headers: { ...{ "Content-Type": "application/json" }, ...headers }
-        }
-
-        if (bodyData && (method === 'POST' || method === 'PUT')) {
-            config.body = JSON.stringify(bodyData);
-        }
-
-        let response = await fetch(url.toString(), config);
-
-        if (response.ok && response.status === 200) {
-
-            let data = await response.json();
-            return data;
-        }
-
-        throw new Error('Something went wrong on api server!');
-
+      headers["Content-Type"] = "application/json";
+    } else {
+      url = new URL(path);
     }
 
-    get(path, searchParams) {
-        return this.fetchData(path, "GET", null, searchParams, null);
+    for (let param in searchParams) {
+      url.searchParams.set(param, searchParams[param]);
     }
 
-    delete(path) {
-        return this.fetchData(path, "DELETE", null, null, null);
+    let config = {
+      method,
+      mode: "cors",
+      headers: headers,
+    };
+
+    if (bodyData && (method === "POST" || method === "PUT")) {
+      config.body = JSON.stringify(bodyData);
     }
 
-    post(path, bodyData) {
-        return this.fetchData(path, "POST", bodyData, null, null);
-    }
+    let response = await fetch(url.toString(), config);
 
-    put(path, bodyData) {
-        return this.fetchData(path, "PUT", bodyData, null, null);
+    if (response.ok) {
+      if (response.status === 200 || response.status === 201) {
+        let data = await response.json();
+        return data;
+      } else if (response.status === 204) {
+        return null;
+      }
+
+      throw new Error(
+        `${response.status} - ${url} - Something went wrong on api server!`
+      );
     }
+  }
+
+  get(path, searchParams) {
+    return this.fetchData(path, "GET", null, searchParams, null);
+  }
+
+  delete(path, searchParams) {
+    return this.fetchData(path, "DELETE", null, searchParams, null);
+  }
+
+  post(path, bodyData, searchParams) {
+    return this.fetchData(path, "POST", bodyData, searchParams, null);
+  }
+
+  put(path, bodyData) {
+    return this.fetchData(path, "PUT", bodyData, null, null);
+  }
 }
 
 const HttpService = new _HttpService();

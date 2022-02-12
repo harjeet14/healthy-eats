@@ -1,23 +1,42 @@
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom'
+import UserService from '../../services/userService';
 import './loginPage.scss'
 
 
 
 export function LoginPage() {
     var navigate = useNavigate();
+    var [loginEmail, setLoginEmail] = useState('');
+    var [loginPass, setLoginPass] = useState('');
     return <div className="login-page">
         <div className='login-page-login'>
             <div className="login-page-row">
-                <input className="login-page-row-input" placeholder="Email" type="text" />
+                <input onChange={(e) => setLoginEmail(e.target.value)} value={loginEmail} className="login-page-row-input" placeholder="Email" type="text" />
             </div>
 
             <div className="login-page-row">
-                <input className="login-page-row-input" placeholder="Password" type="password" />
+                <input onChange={(e) => setLoginPass(e.target.value)} value={loginPass} className="login-page-row-input" placeholder="Password" type="password" />
             </div>
 
-            <button className="login-page-button" onClick={() => {
-                sessionStorage.logedIn = true;
-                navigate("/");
+            <button className="login-page-button" onClick={async () => {
+                if (loginEmail && loginPass) {
+                    const user = await UserService.authenticateUser(loginEmail, loginPass);
+
+                    if (user) {
+                        sessionStorage.sessionUserFullName = user.firstName + ' ' + user.lastName;
+                        sessionStorage.sessionUserId = user.id;
+                        setLoginPass('');
+                        setLoginEmail('');
+                        navigate("/");
+                        return;
+                    }
+                }
+
+                setLoginPass('');
+                setLoginEmail('');
+                alert('invalid credential')
+
 
             }}>
                 Login

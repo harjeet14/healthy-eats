@@ -1,19 +1,35 @@
-import { useEffect, useState, useContext, useCallback } from "react";
-import axios from "axios";
+import { useState, useEffect } from "react";
 import { RecipeCard } from "../../pages/recipes/recipeCard";
+import FoodService from "../../services/foodService";
+import HealthyEatsApiService from "../../services/healthyEatsApiService";
 import './searchPage.scss'
 
 export function SearchPage() {
 
   const [searchTerm, setsearchTerm] = useState("");
+  const [savedRecipes, setSavedRecipes] = useState([]);
   const [recipes, setRecipes] = useState([]);
 
-  const fetchRecipes = function (params) {
-    axios
-      .get(`https://www.themealdb.com/api/json/v1/1/search.php?s=${searchTerm}`)
+  useEffect(() => {
+
+    HealthyEatsApiService.getSavedRecipes(sessionStorage.sessionUserId)
       .then(res => {
-        setRecipes(res.data.meals);
+        setSavedRecipes(res || []);
       });
+
+  }, []);
+
+  const fetchRecipes = function () {
+    FoodService.getRecipes(searchTerm)
+      .then(res => {
+
+        res.forEach(r => {
+          r.isSaved = savedRecipes.some(sr => sr.recipe_id === r.foodId);
+        });
+
+        setRecipes(res);
+      });
+
   };
 
   return (
@@ -27,15 +43,12 @@ export function SearchPage() {
         <button onClick={fetchRecipes} >Search</button>
       </div>
       <div className="search-page-grid">
-        {recipes ? (
-          recipes.map((recipe) => (
-            <RecipeCard
-              recipe={recipe}
-            />
-          ))
-        ) : (
-          <h2>No meals found! Try another word...</h2>
+
+        {recipes.map((recipe, index) => <RecipeCard key={`recipe-${recipe.foodId}`}
+          recipe={recipe}
+        />
         )}
+        {!recipes.length && <h2>No meals found! Try another word...</h2>}
       </div>
     </div>
   );

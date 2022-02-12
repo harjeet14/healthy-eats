@@ -1,6 +1,6 @@
-import { UnderConstruction } from "../../components/underConstruction/underConstruction";
+import { Calendar } from "./calendar/calendar";
 import './homePage.scss'
 
 export function HomePage() {
-    return <UnderConstruction title={"Home Page"} />
+    return <Calendar />
 }
