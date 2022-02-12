@@ -1,5 +1,5 @@
-import HttpService from '../../services/httpService';
 import { useState } from 'react';
+import HealthyEatsApiService from '../../services/healthyEatsApiService';
 import './recipeCard.scss'
 
 export function RecipeCard({ recipe }) {
@@ -9,12 +9,12 @@ export function RecipeCard({ recipe }) {
   const saveUnsaveRecipe = function () {
 
     if (strSaveButton === 'Save') {
-      HttpService.post('/api/savedRecipes', null, { 'userId': 1, 'recipeId': recipe.foodId })
+      HealthyEatsApiService.createSavedRecipes(sessionStorage.sessionUserId, recipe.foodId)
         .then(res => {
           setStrSaveButton('Saved');
         });
     } else {
-      HttpService.delete('/api/savedRecipes', { 'userId': 1, 'recipeId': recipe.foodId })
+      HealthyEatsApiService.deleteSavedRecipes(sessionStorage.sessionUserId, recipe.foodId)
         .then(res => {
           setStrSaveButton('Save');
         });
