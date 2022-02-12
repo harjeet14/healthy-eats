@@ -1,19 +1,36 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { RecipeCard } from "../../pages/recipes/recipeCard";
 import FoodService from "../../services/foodService";
+import HttpService from "../../services/httpService";
 import './searchPage.scss'
 
 export function SearchPage() {
 
   const [searchTerm, setsearchTerm] = useState("");
+  const [savedRecipes, setSavedRecipes] = useState([]);
   const [recipes, setRecipes] = useState([]);
+
+  useEffect(() => {
+
+    HttpService.get('/api/savedRecipes/userId/1', null)
+      .then(res => {
+        setSavedRecipes(res);
+      });
+
+  }, []);
 
   const fetchRecipes = function () {
 
     FoodService.getRecipes(searchTerm)
       .then(res => {
+
+        res.forEach(r => {
+          r.isSaved = savedRecipes.some(sr => sr.recipe_id === r.foodId);
+        });
+
         setRecipes(res);
       });
+
   };
 
   return (
