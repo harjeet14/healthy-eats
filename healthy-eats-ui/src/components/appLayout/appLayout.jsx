@@ -1,5 +1,5 @@
 import { Link, Route, Routes, useNavigate } from "react-router-dom";
-import { HistoryPage } from "../../pages/history/historyPage";
+import { OrderHistoryPage } from "../../pages/orderHistory/orderHistoryPage";
 import { HomePage } from "../../pages/home/homePage";
 import { LoginPage } from "../../pages/login/loginPage";
 import { OrderPage } from "../../pages/order/orderPage";
@@ -18,7 +18,7 @@ export function AppLayout({ children }) {
       <Link to="/search" >Search</Link>
       <Link to="/order" >Order</Link>
       <Link to="/recipes" >Recipes</Link>
-      <Link to="/history" >History</Link>
+      <Link to="/orderHistory" >Order history</Link>
       <Link to="/savedRecipes" >Saved</Link>
       {!sessionStorage.sessionUserFullName && <Link to="/login" >Login</Link>}
 
@@ -57,9 +57,9 @@ export function AppLayout({ children }) {
             <RecipesPage />
           </AuthenticationGuard>} />
 
-        <Route path='/history'
+        <Route path='/orderHistory'
           element={<AuthenticationGuard>
-            <HistoryPage />
+            <OrderHistoryPage />
           </AuthenticationGuard>} />
 
         <Route path='/savedRecipes'
