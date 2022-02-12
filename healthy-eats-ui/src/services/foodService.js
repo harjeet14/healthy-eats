@@ -3,6 +3,7 @@ import { getParsableDate } from "./calendarService";
 import HttpService from "./httpService";
 
 const foodApiUrl = appConfig.foodApi.url;
+const recipesBulkApiUrl = appConfig.foodApi.recipesBulkApiUrl;
 const foodApiToken = appConfig.foodApi.key;
 
 class _FoodService {
@@ -67,6 +68,28 @@ class _FoodService {
     }, {});
 
     return map;
+  }
+
+  async getRecipesBulk(recipeIds) {
+
+    const recipes = [];
+
+    const recipesBulk = await HttpService.get(recipesBulkApiUrl, {
+      apiKey: foodApiToken,
+      ids: recipeIds
+    });
+
+    if (recipesBulk) {
+      recipesBulk.forEach(recipe => {
+        recipes.push({
+          foodId: recipe.id,
+          foodTitle: recipe.title,
+          foodImage: recipe.image
+        })
+      });
+    }
+
+    return recipes;
   }
 }
 
