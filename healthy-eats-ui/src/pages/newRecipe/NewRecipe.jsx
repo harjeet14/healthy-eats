@@ -24,8 +24,20 @@ export function NewRecipe(props) {
 
     
 
-    const handleSubmit=(e)=>{
-      
+    const addRecipe=(e)=>{
+        e.preventDefault()
+       const recipe = {
+           recipeTitle,
+           recipeDescription,
+           recipeImageUrls,
+           recipeIngredients           
+       }
+              return axios.post("http://localhost:8080/api/recipes/new", recipe)
+              .then(()=>{
+               console.log("recipe added")
+               
+              })
+            
         };
     
     const addIngredients=(e)=>{
@@ -34,9 +46,9 @@ export function NewRecipe(props) {
         setRecipeIngredients([
             ...recipeIngredients,
             {
-                ingredient,
-                ingredientServings,
-                ingredientUnit
+                "ingredient": ingredient,
+                "ingredientServings" : ingredientServings,
+                "ingredientUnit": ingredientUnit
 
             }
         ])
@@ -48,8 +60,7 @@ export function NewRecipe(props) {
         <div className="overlay">
             <div className="modal">
                 <h1>Add a new recipe</h1>
-
-                <form action="/api/recipes/new" method="POST">
+                <form> 
                     <label>Recipe Title</label>
                     <input  
                     type="text"
@@ -105,7 +116,7 @@ export function NewRecipe(props) {
                     onChange={(e) => setRecipeServings(e.target.value)}
                     />
 
-                   <button >Add Recipe</button>
+                   <button onClick={addRecipe}>Add Recipe</button>
                 </form>
                 <button onClick={props.handleClick}>close</button> 
             </div>

@@ -1,9 +1,12 @@
 const express = require('express');
 const { connectionString } = require('../lib/db');
 const router  = express.Router();
+const cors = require("cors");
+router.use(cors());
 
 module.exports = (db) => {
-  rotuer.post("/new",(req,res) => {
+  router.post("/new",(req,res) => {
+    console.log("in router")
     console.log("psoted recipe", req.body)
     // const date = new Date();
     // const query = {
@@ -16,6 +19,7 @@ module.exports = (db) => {
     //   res.redirect('/')
     // })
   });
+  return router;
 };
 
 
