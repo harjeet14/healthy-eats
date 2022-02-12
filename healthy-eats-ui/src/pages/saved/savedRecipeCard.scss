@@ -1,0 +1,57 @@
+.saved-meal{
+  height: 30%; 
+  text-align: center;
+  padding: 60px;
+  position:relative;
+  //  border: solid 1px gray;
+  width: 18vw 3px ;
+  padding: 20px;
+  display: flex;
+  flex-direction:column ;
+ 
+
+img{
+ 
+ width:200px ;
+ border: 1px solid #ccc;
+ margin: 10px;
+ transition: all 0.4s ease;
+ border-radius:10px;
+ height: 150px;
+ display: block;
+ &:hover{ 
+     transform:scale(1.1)
+ }
+ }
+.name{
+ font-size: 10px;
+ font:menu;
+ margin-left: 2px;
+ padding-left: 1px;
+}
+
+.button-delete{
+margin: 12px;
+font-size: 18px;
+background-color: rgb(223, 166, 97);
+outline: 0;
+border-radius: 18%;
+width: 180px;
+height: 30px;
+text-align: center;
+
+
+}
+.button-Add{
+  margin: 12px;
+  font-size: 18px;
+  background-color: rgb(223, 166, 97);
+  outline: 0;
+  border-radius: 18%;
+  width: 180px;
+  height: 30px;
+  text-align: center;
+  
+  
+  }
+}
