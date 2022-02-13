@@ -1,6 +1,7 @@
 import axios from 'axios'
 import { useState } from 'react'
 import styles from '../newRecipe/NewRecipe.scss'
+import HealthyEatsApiService from '../../services/healthyEatsApiService';
 
 
 
@@ -20,23 +21,19 @@ export function NewRecipe(props) {
 
     const [recipeServings, setRecipeServings] = useState("")
 
-
-
-    
-
     const addRecipe=(e)=>{
         e.preventDefault()
-       const recipe = {
+       const newRecipe = {
            recipeTitle,
            recipeDescription,
            recipeImageUrls,
            recipeIngredients           
        }
-              return axios.post("http://localhost:8080/api/recipes/new", recipe)
-              .then(()=>{
-               console.log("recipe added")
-               
-              })
+
+       HealthyEatsApiService.addNewRecipe(sessionStorage.sessionUserId, newRecipe)
+       .then(res => {
+       });
+            
             
         };
     

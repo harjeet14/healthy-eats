@@ -28,12 +28,12 @@ app.use(bodyParser.json());
 // Separated Routes for each Resource
 // Note: Feel free to replace the example routes below with your own
 const usersRoutes = require("./routes/users");
-const recipeRoutes = require("../healthy-eats-api/routes/recipes")
+const ordersRoute = require("./routes/orders");
+const userSavedRecipes = require("./routes/savedRecipes");
 
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
 app.use("/api/users", usersRoutes(db));
-app.use("/api/recipes", recipeRoutes(db))
 // Note: mount other resources here, using the same pattern above
 
 // Home page
@@ -43,8 +43,7 @@ app.use("/api/recipes", recipeRoutes(db))
 app.get("/", (req, res) => {
   res.render("index");
 });
-const ordersRoute = require("./routes/orders");
-const userSavedRecipes = require("./routes/savedRecipes");
+
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
 app.use("/api/users", usersRoutes(db));

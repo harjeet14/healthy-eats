@@ -22,6 +22,12 @@ class _HealthyEatsApiService {
 
     return res;
   }
+  async addNewRecipe(userId, newRecipe) {
+
+    const res = HttpService.put('/api/savedRecipes/new', { 'userId': userId, 'newRecipe': newRecipe })
+
+    return res;
+  }
 
 }
 
