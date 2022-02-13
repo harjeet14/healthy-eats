@@ -1,12 +1,13 @@
 import { useState, useEffect } from "react";
-import { RecipeCard } from "../../pages/recipes/recipeCard";
+import RecipeCard from "../../components/recipes/recipeCard";
 import FoodService from "../../services/foodService";
 import HealthyEatsApiService from "../../services/healthyEatsApiService";
+import { Grid, Container, Box, Button, TextField } from "@mui/material";
 import './searchPage.scss'
 
 export function SearchPage() {
 
-  const [searchTerm, setsearchTerm] = useState("");
+  const [searchTerm, setSearchTerm] = useState("");
   const [savedRecipes, setSavedRecipes] = useState([]);
   const [recipes, setRecipes] = useState([]);
 
@@ -20,6 +21,7 @@ export function SearchPage() {
   }, []);
 
   const fetchRecipes = function () {
+    // FoodService.getRecipesTheMealDb(searchTerm)
     FoodService.getRecipes(searchTerm)
       .then(res => {
 
@@ -29,27 +31,43 @@ export function SearchPage() {
 
         setRecipes(res);
       });
+  };
 
+  const saveUnsaveRecipe = function (recipe, setIsSaved) {
+
+    if (!recipe.isSaved) {
+      HealthyEatsApiService.createSavedRecipes(sessionStorage.sessionUserId, recipe.foodId)
+        .then((res) => {
+          setIsSaved(true);
+          recipe.isSaved = true;
+        });
+    } else {
+      HealthyEatsApiService.deleteSavedRecipes(sessionStorage.sessionUserId, recipe.foodId)
+        .then((res) => {
+          setIsSaved(false);
+          recipe.isSaved = false;
+        });
+    }
   };
 
   return (
-    <div className="search-page">
-      <div className="search-page-search">
-        <input
-          type="text"
-          placeholder="Type meal name here..."
-          value={searchTerm}
-          onChange={(e) => setsearchTerm(e.target.value)} />
-        <button onClick={fetchRecipes} >Search</button>
-      </div>
-      <div className="search-page-grid">
 
-        {recipes.map((recipe, index) => <RecipeCard key={`recipe-${recipe.foodId}`}
-          recipe={recipe}
-        />
+    <Container>
+      <Box display="flex" justifyContent="center" padding={2} >
+        <TextField id="outlined-search" label="Search" type="search"
+          onChange={(e) => setSearchTerm(e.target.value)} />
+        <Button onClick={fetchRecipes}>Submit</Button>
+      </Box>
+      <Grid container marginX={20} spacing={{ lg: 2 }} columns={{ lg: 4 }} >
+        {recipes.map((recipe, index) =>
+          <Grid item lg={1} key={index}>
+            <RecipeCard
+              key={`recipe-${recipe.foodId}`}
+              recipe={recipe}
+              saveUnsaveRecipe={saveUnsaveRecipe} />
+          </Grid>
         )}
-        {!recipes.length && <h2>No meals found! Try another word...</h2>}
-      </div>
-    </div>
+      </Grid>
+    </Container >
   );
 };
