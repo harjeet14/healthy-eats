@@ -33,6 +33,26 @@ class _FoodService {
     return [];
   }
 
+  // Can be used when spoonacular runs of daily limit
+  async getRecipesTheMealDb(searchClause) {
+    const res = await HttpService.get('https://www.themealdb.com/api/json/v1/1/search.php', {
+      f: searchClause
+    });
+
+    const product = res?.meals;
+
+    if (product instanceof Array) {
+      return product.map((prd) => {
+        return {
+          foodId: prd.idMeal,
+          foodTitle: prd.strMeal,
+          foodImage: prd.strMealThumb,
+        };
+      });
+    }
+    return [];
+  }
+
   async saveDayOrder(payload) {
     HttpService.post("/api/orders", payload);
   }
