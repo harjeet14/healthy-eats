@@ -9,9 +9,10 @@ import Delete from "@mui/icons-material/Delete";
 import { Bookmark, BookmarkBorder } from '@mui/icons-material';
 import { useState } from 'react';
 
-export default function RecipeCard({ recipe, isDeletable, saveUnsaveRecipe }) {
+export default function RecipeCard({ recipe, isDeletable, saveUnsaveRecipe, likeUnlikeRecipe }) {
 
   const [isSaved, setIsSaved] = useState(recipe.isSaved);
+  const [isLiked, setIsLiked] = useState(recipe.isLiked);
 
   return (
     <Card sx={{ maxWidth: 300 }}>
@@ -30,8 +31,8 @@ export default function RecipeCard({ recipe, isDeletable, saveUnsaveRecipe }) {
         alt="Paella dish"
       />
       <CardActions disableSpacing>
-        <IconButton aria-label="add to favorites" >
-          {recipe.isLiked ? <Favorite /> : <FavoriteBorder />}
+        <IconButton aria-label="add to favorites" onClick={() => likeUnlikeRecipe(recipe, setIsLiked)} >
+          {isLiked ? <Favorite /> : <FavoriteBorder />}
         </IconButton>
         {isDeletable &&
           <IconButton aria-label="delete from favorites" onClick={() => saveUnsaveRecipe(recipe, setIsSaved)}>
