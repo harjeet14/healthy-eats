@@ -23,6 +23,26 @@ class _HealthyEatsApiService {
     return res;
   }
 
+  async getLikedRecipes(userId) {
+
+    const recipeIds = await HttpService.get(`/api/likedRecipes/userId/${userId}`, null);
+
+    return recipeIds;
+  }
+
+  async createLikedRecipes(userId, recipeId) {
+
+    const res = HttpService.post('/api/likedRecipes', null, { 'userId': userId, 'recipeId': recipeId })
+
+    return res;
+  }
+
+  async deleteLikedRecipes(userId, recipeId) {
+
+    const res = HttpService.delete('/api/likedRecipes', { 'userId': userId, 'recipeId': recipeId })
+
+    return res;
+  }
 }
 
 const HealthyEatsApiService = new _HealthyEatsApiService();

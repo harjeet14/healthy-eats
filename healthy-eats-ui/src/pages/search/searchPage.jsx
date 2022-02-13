@@ -9,6 +9,7 @@ export function SearchPage() {
 
   const [searchTerm, setSearchTerm] = useState("");
   const [savedRecipes, setSavedRecipes] = useState([]);
+  const [likedRecipes, setLikedRecipes] = useState([]);
   const [recipes, setRecipes] = useState([]);
 
   useEffect(() => {
@@ -16,6 +17,11 @@ export function SearchPage() {
     HealthyEatsApiService.getSavedRecipes(sessionStorage.sessionUserId)
       .then(res => {
         setSavedRecipes(res || []);
+      });
+
+    HealthyEatsApiService.getLikedRecipes(sessionStorage.sessionUserId)
+      .then(res => {
+        setLikedRecipes(res || []);
       });
 
   }, []);
@@ -27,6 +33,7 @@ export function SearchPage() {
 
         res.forEach(r => {
           r.isSaved = savedRecipes.some(sr => sr.recipe_id === r.foodId);
+          r.isLiked = likedRecipes.some(sr => sr.recipe_id === r.foodId);
         });
 
         setRecipes(res);
@@ -50,6 +57,23 @@ export function SearchPage() {
     }
   };
 
+  const likeUnlikeRecipe = function (recipe, setIsLiked) {
+
+    if (!recipe.isLiked) {
+      HealthyEatsApiService.createLikedRecipes(sessionStorage.sessionUserId, recipe.foodId)
+        .then((res) => {
+          setIsLiked(true);
+          recipe.isLiked = true;
+        });
+    } else {
+      HealthyEatsApiService.deleteLikedRecipes(sessionStorage.sessionUserId, recipe.foodId)
+        .then((res) => {
+          setIsLiked(false);
+          recipe.isLiked = false;
+        });
+    }
+  };
+
   return (
 
     <Container>
@@ -64,7 +88,8 @@ export function SearchPage() {
             <RecipeCard
               key={`recipe-${recipe.foodId}`}
               recipe={recipe}
-              saveUnsaveRecipe={saveUnsaveRecipe} />
+              saveUnsaveRecipe={saveUnsaveRecipe}
+              likeUnlikeRecipe={likeUnlikeRecipe} />
           </Grid>
         )}
       </Grid>
