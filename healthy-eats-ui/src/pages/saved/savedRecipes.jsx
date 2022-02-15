@@ -14,33 +14,50 @@ export function SavedRecipes() {
     HealthyEatsApiService.deleteSavedRecipes(sessionStorage.sessionUserId, recipe.foodId)
       .then((res) => {
         setIsSaved(false);
-        // recipe.isSaved = false;
         const newRecipes = recipes.filter(r => r.foodId != recipe.foodId);
         setRecipes(newRecipes);
       });
 
   };
 
-  useEffect(() => {
+  const likeUnlikeRecipe = function (recipe, setIsLiked) {
 
-    const recipeIds = [];
-    HealthyEatsApiService.getSavedRecipes(sessionStorage.sessionUserId)
-      .then(res => {
-        res?.forEach(element => {
-          recipeIds.push(element.recipe_id);
+    if (!recipe.isLiked) {
+      HealthyEatsApiService.createLikedRecipes(sessionStorage.sessionUserId, recipe.foodId)
+        .then((res) => {
+          setIsLiked(true);
+          recipe.isLiked = true;
         });
-      })
-      .then(() => {
-        FoodService.getRecipesBulk(recipeIds)
-          .then(res => {
-            setRecipes(res);
-          });
-      })
-      ;
+    } else {
+      HealthyEatsApiService.deleteLikedRecipes(sessionStorage.sessionUserId, recipe.foodId)
+        .then((res) => {
+          setIsLiked(false);
+          recipe.isLiked = false;
+        });
+    }
+  };
+
+  useEffect(async () => {
+
+    const savedRecipeIdObjects = await HealthyEatsApiService.getSavedRecipes(sessionStorage.sessionUserId);
+    const likedRecipes = await HealthyEatsApiService.getLikedRecipes(sessionStorage.sessionUserId);
+
+    const savedRecipeIds = [];
+    savedRecipeIdObjects.forEach(element => {
+      savedRecipeIds.push(element.recipe_id);
+    });
+
+    const recipesBulk = await FoodService.getRecipesBulk(savedRecipeIds);
+    recipesBulk.forEach(r => {
+      r.isLiked = likedRecipes.some(sr => sr.recipe_id === r.foodId);
+    });
+    setRecipes(recipesBulk);
+
   }, []);
 
   return (
     <Container>
+      <Box display="flex" justifyContent="center" fontSize={40} >Saved</Box>
       <Grid container marginX={20} spacing={{ lg: 2 }} columns={{ lg: 4 }} >
         {recipes.map((recipe, index) =>
           <Grid item lg={1} key={index}>
@@ -48,6 +65,7 @@ export function SavedRecipes() {
               key={`recipe-${recipe.foodId}`}
               recipe={recipe}
               saveUnsaveRecipe={saveUnsaveRecipe}
+              likeUnlikeRecipe={likeUnlikeRecipe}
               isDeletable="true" />
           </Grid>
         )}
