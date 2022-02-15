@@ -11,6 +11,7 @@ const appConfig = {
 
   foodApi: {
     url: "https://api.spoonacular.com/recipes/complexSearch",
+    recipesBulkApiUrl: "https://api.spoonacular.com/recipes/informationBulk",
     key: "YOUR KEY",
   },
 };
