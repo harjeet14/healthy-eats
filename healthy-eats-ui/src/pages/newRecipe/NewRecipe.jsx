@@ -16,12 +16,14 @@ export function NewRecipe(props) {
     const [ingredientServings, setIngredientServings] = useState("1")
     const [ingredientUnit, setIngredientUnit] = useState("Cups")
 
+    const setIsNewRecipeActive = props.handleClick;
 
 
 
     const [recipeServings, setRecipeServings] = useState("")
 
     const addRecipe=(e)=>{
+        setIsNewRecipeActive(false);
         e.preventDefault()
        const newRecipe = {
            recipeTitle,
@@ -31,9 +33,7 @@ export function NewRecipe(props) {
        }
 
        HealthyEatsApiService.addNewRecipe(sessionStorage.sessionUserId, newRecipe)
-       .then(res => {
-       });
-            
+     
             
         };
     

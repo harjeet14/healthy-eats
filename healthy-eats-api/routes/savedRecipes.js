@@ -36,19 +36,14 @@ module.exports = (db) => {
     
     const recipePrice=500;
     const query = {
-      text: `insert into created_recipes (user_id, recipeTitle, recipeDescription, recipePrice, recipeImageUrls, createdAt) values ($1,$2,$3, $4,$5,$6)
+      text: `insert into created_recipes (user_id, recipe_title, recipe_description, recipe_price, recipe_image_urls, created_at) values ($1,$2,$3, $4,$5,$6)
       RETURNING *`,
       values: [`${parseInt(req.body.userId)}`,`${req.body.newRecipe.recipeTitle}`,`${req.body.newRecipe.recipeDescription}`, `${recipePrice}`, `${req.body.newRecipe.recipeImageUrls}`, `${date}`]
     };
-    return db.query(query)
-    .then(result=>{
-      const query = {
-        text: `insert into saved_recipes (user_id, recipe_id) values ($1, $2) returning *`,
-        values: [`${result.rows[0].user_id}`, `${result.rows[0].recipe_id}`]
-      };
-      return db.query(query)
-      .then(result =>console.log(result))
-    })
+    db.query(query)
+      .then(result=>{
+        res.status(204).json();
+      })
     .catch(error=>console.log(error))
   })
 
@@ -77,6 +72,7 @@ module.exports = (db) => {
 
   router.get("/userId/:userId", (req, res) => {
     const userId = req.params.userId;
+    console.log("geting saved recipes")
     let queryText = `select recipe_id from saved_recipes where user_id = $1`;
     const query = {
       text: queryText,

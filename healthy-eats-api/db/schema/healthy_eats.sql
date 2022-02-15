@@ -34,12 +34,12 @@ CREATE TABLE recipe_comments(
 CREATE TABLE created_recipes(
   recipe_id SERIAL PRIMARY KEY NOT NULL,
   user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
-  recipeTitle VARCHAR(255) NOT NULL,
-  recipeDescription VARCHAR(255) NOT NULL,
-  recipePrice numeric,
-  recipeImageUrls VARCHAR(255) NOT NULL,
-  createdAt date NOT NULL,
-  avgRating SMALLINT NOT NULL DEFAULT 0
+  recipe_title VARCHAR(255) NOT NULL,
+  recipe_description VARCHAR(255) NOT NULL,
+  recipe_price numeric,
+  recipe_image_urls VARCHAR(255) NOT NULL,
+  created_at date NOT NULL,
+  avg_rating SMALLINT NOT NULL DEFAULT 0
 );
 CREATE TABLE created_recipes_ingredients(
   created_recipe_id INTEGER REFERENCES created_recipes(recipe_id) ON DELETE CASCADE,
