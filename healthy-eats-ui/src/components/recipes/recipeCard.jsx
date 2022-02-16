@@ -8,7 +8,7 @@ import { Favorite, FavoriteBorder } from '@mui/icons-material';
 import Delete from "@mui/icons-material/Delete";
 import { Bookmark, BookmarkBorder, MoreVert } from '@mui/icons-material';
 import { useState } from 'react';
-import SimpleDialog from '../Common/AddToDialog';
+import AddToDialog from '../Common/AddToDialog';
 
 const dialogOptions = ['Shopping List'];
 
@@ -61,7 +61,7 @@ export default function RecipeCard({ recipe, isDeletable, saveUnsaveRecipe, like
           }
         </CardActions>
       </Card >
-      <SimpleDialog
+      <AddToDialog
         selectedValue={selectedValue}
         open={isOpen}
         onClose={handleClose}
