@@ -52,7 +52,7 @@ export function CalendarCell({ date, dayData, currentMonth, onClick }) {
             </div>
         }
         {!hasOrder && <div className="calendar-row-cell-body">
-            {isCurrentMonth && <span> &nbsp;&nbsp; Order here</span>}
+            {isCurrentMonth && <span> &nbsp;&nbsp; Ready to Plan?</span>}
         </div>}
 
     </div>

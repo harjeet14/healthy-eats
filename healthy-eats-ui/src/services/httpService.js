@@ -1,4 +1,4 @@
-import appConfig from "../appConfig";
+import { appConfig } from "../appConfig.example";
 
 const apiServiceUrl = appConfig?.apiService?.url ?? "http://localhost/";
 const apiServicePort = appConfig?.apiService?.port ?? 8080;

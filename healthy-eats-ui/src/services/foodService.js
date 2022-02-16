@@ -1,9 +1,10 @@
-import appConfig from "../appConfig";
+import { appConfig } from "../appConfig.example";
 import { getParsableDate } from "./calendarService";
 import HttpService from "./httpService";
 
 const foodApiUrl = appConfig.foodApi.url;
 const recipesBulkApiUrl = appConfig.foodApi.recipesBulkApiUrl;
+const recipeInfoUrl = appConfig.foodApi.recipeInfoUrl;
 const foodApiToken = appConfig.foodApi.key;
 
 class _FoodService {
@@ -35,9 +36,12 @@ class _FoodService {
 
   // Can be used when spoonacular runs of daily limit
   async getRecipesTheMealDb(searchClause) {
-    const res = await HttpService.get('https://www.themealdb.com/api/json/v1/1/search.php', {
-      f: searchClause
-    });
+    const res = await HttpService.get(
+      "https://www.themealdb.com/api/json/v1/1/search.php",
+      {
+        f: searchClause,
+      }
+    );
 
     const product = res?.meals;
 
@@ -91,25 +95,31 @@ class _FoodService {
   }
 
   async getRecipesBulk(recipeIds) {
-
     const recipes = [];
 
     const recipesBulk = await HttpService.get(recipesBulkApiUrl, {
       apiKey: foodApiToken,
-      ids: recipeIds
+      ids: recipeIds,
     });
 
     if (recipesBulk) {
-      recipesBulk.forEach(recipe => {
+      recipesBulk.forEach((recipe) => {
         recipes.push({
           foodId: recipe.id,
           foodTitle: recipe.title,
-          foodImage: recipe.image
-        })
+          foodImage: recipe.image,
+        });
       });
     }
 
     return recipes;
+  }
+
+  async getRecipeInfo(id) {
+    const info = await HttpService.get(recipeInfoUrl.replace("{id}", id), {
+      apiKey: foodApiToken,
+    });
+    return info;
   }
 }
 

@@ -1,0 +1,70 @@
+.recipeInfoModal {
+    width: 100vw;
+    height: 100vh;
+    z-index: +10;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    display: absolute;
+    background-color: rgba(0,0,0,0.25);
+    margin: auto;
+    &-content{
+        position: relative;;
+        background-color: whitesmoke;
+        margin: 25px auto auto auto;
+        box-shadow: 0 0 20px 3px black;
+        
+        max-height: calc(100vh - 50px);
+
+       
+        border-radius: 6px;
+        width: 75%;
+        overflow: hidden;
+
+        &-head{
+            display: flex;
+            justify-content: space-between;
+            background-color: lightgray;
+            height: 40px;
+            padding: 10px 24px;
+
+            &-button{
+                border: solid 1px gray;
+                box-shadow: 0 0 1px black;
+                padding: 0px 4px;
+                cursor: pointer;
+            }
+        }
+
+        &-body{
+            max-height: calc(100vh - 130px);
+            padding: 10px 24px;
+            overflow-y: auto;
+            overflow-x: hidden;
+            &-flexRow{
+                display: flex;
+                fieldset {
+                    margin: 4px;
+                    border-radius: 4px;
+                    flex: 1;
+                    padding: 10px 15px;
+                    legend {
+                        padding: 0 15px;
+                    }
+
+                    img{
+                        border-radius: 4px;
+                        width: 100%;
+                        background-color: red;
+                    }
+                    .infoHtmlContent{
+                        text-align: justify;
+                        font-size: 15px;
+                        line-height: 1.5;
+                    }
+                }
+            }
+        }
+    }
+}

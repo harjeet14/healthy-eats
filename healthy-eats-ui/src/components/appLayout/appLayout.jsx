@@ -1,26 +1,32 @@
-import { Link, Route, Routes, useNavigate } from "react-router-dom";
+import { Route, Routes, useNavigate, NavLink } from "react-router-dom";
 import { OrderHistoryPage } from "../../pages/orderHistory/orderHistoryPage";
 import { HomePage } from "../../pages/home/homePage";
 import { LoginPage } from "../../pages/login/loginPage";
-import { OrderPage } from "../../pages/order/orderPage";
 import { RecipesPage } from "../../pages/recipes/recipesPage";
 import { SavedRecipes } from "../../pages/saved/savedRecipes";
 import { SearchPage } from "../../pages/search/searchPage";
 import { AuthenticationGuard } from "../authenticationGuard";
-// import { Cart } from "../../pages/cart/cart";
 import './appLayout.scss'
 
+
+function AppNavLink({ to, children }) {
+  return <NavLink className={({ isActive }) => {
+    return (isActive ? "activeRoute" : "");
+  }} to={to} >
+    {children}
+  </NavLink>
+
+}
 export function AppLayout({ children }) {
   const navigate = useNavigate();
   return <div className="app-layout">
     <div className="app-layout-navigation">
-      <Link to="/" >{sessionStorage.sessionUserFullName}</Link>
-      <Link to="/search" >Search</Link>
-      <Link to="/order" >Order</Link>
-      <Link to="/recipes" >Recipes</Link>
-      <Link to="/orderHistory" >Order history</Link>
-      <Link to="/savedRecipes" >Saved</Link>
-      {!sessionStorage.sessionUserFullName && <Link to="/login" >Login</Link>}
+      <AppNavLink to="/" >{sessionStorage.sessionUserFullName}</AppNavLink>
+      <AppNavLink to="/search" >Search</AppNavLink>
+      <AppNavLink to="/recipes" >Recipes</AppNavLink>
+      <AppNavLink to="/orderHistory" >Order history</AppNavLink>
+      <AppNavLink to="/savedRecipes" >Saved</AppNavLink>
+      {!sessionStorage.sessionUserFullName && <AppNavLink to="/login" >Login</AppNavLink>}
 
       {sessionStorage.sessionUserFullName && <a href="/login" onClick={(e) => {
         e.preventDefault();
@@ -46,11 +52,6 @@ export function AppLayout({ children }) {
             <SearchPage />
           </AuthenticationGuard>} />
 
-
-        <Route path='/order'
-          element={<AuthenticationGuard>
-            <OrderPage />
-          </AuthenticationGuard>} />
 
         <Route path='/recipes'
           element={<AuthenticationGuard>

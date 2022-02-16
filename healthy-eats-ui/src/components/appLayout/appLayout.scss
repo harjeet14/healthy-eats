@@ -8,17 +8,35 @@ $navHeight: 50px;
         width: 100vw;
         display: flex;
         height: $navHeight;
-        background-color: rgb(191, 191, 214);
+        background-color: rgb(190, 190, 205);
         align-items: center;
 
         & > a {
+            color: rgb(110, 0, 200);
+            text-decoration: none;
             flex: 1;
             margin: 0 20px;
+            text-align: center;
+
+            
+
+            &:visited{
+                color: rgb(110, 0, 200);
+            }
+
+            &.activeRoute{
+                color: rgb(100, 100, 100);
+            }
+
+            &:hover{
+                text-shadow: 0px 0px 2px gray;
+            }
+            
         }
     }
 
     &-content {
-        background-color: azure;
+        background-color: whitesmoke;
         height: calc(100vh - 50px);
     }
 }

@@ -4,6 +4,8 @@ import FoodService from "../../services/foodService";
 import HealthyEatsApiService from "../../services/healthyEatsApiService";
 import { Grid, Container, Box, Button, TextField } from "@mui/material";
 import './searchPage.scss'
+import { RecipeInfoModal } from "../recipeInfoModal/recipeInfoModal";
+
 
 export function SearchPage() {
 
@@ -11,6 +13,8 @@ export function SearchPage() {
   const [savedRecipes, setSavedRecipes] = useState([]);
   const [likedRecipes, setLikedRecipes] = useState([]);
   const [recipes, setRecipes] = useState([]);
+
+  const [selectedRecipe, setSelectedRecipe] = useState(null);
 
   useEffect(() => {
 
@@ -76,23 +80,35 @@ export function SearchPage() {
 
   return (
 
-    <Container>
-      <Box display="flex" justifyContent="center" padding={2} >
-        <TextField id="outlined-search" label="Search" type="search"
-          onChange={(e) => setSearchTerm(e.target.value)} />
-        <Button onClick={fetchRecipes}>Submit</Button>
-      </Box>
-      <Grid container marginX={20} spacing={{ lg: 2 }} columns={{ lg: 4 }} >
-        {recipes.map((recipe, index) =>
-          <Grid item lg={1} key={index}>
-            <RecipeCard
-              key={`recipe-${recipe.foodId}`}
-              recipe={recipe}
-              saveUnsaveRecipe={saveUnsaveRecipe}
-              likeUnlikeRecipe={likeUnlikeRecipe} />
-          </Grid>
-        )}
-      </Grid>
-    </Container >
+    <div>
+      <Container>
+        <Box display="flex" justifyContent="center" padding={2} >
+          <TextField id="outlined-search" label="Search" type="search"
+            onChange={(e) => setSearchTerm(e.target.value)} />
+          <Button onClick={fetchRecipes}>Submit</Button>
+        </Box>
+        <Grid container marginX={20} spacing={{ lg: 2 }} columns={{ lg: 4 }} >
+          {recipes.map((recipe, index) =>
+            <Grid item lg={1} key={index}>
+              <RecipeCard
+                onClick={async (food) => {
+
+                  let res = await FoodService.getRecipeInfo(food.foodId)
+                  setSelectedRecipe(res);
+                }}
+                key={`recipe-${recipe.foodId}`}
+                recipe={recipe}
+                saveUnsaveRecipe={saveUnsaveRecipe}
+                likeUnlikeRecipe={likeUnlikeRecipe} />
+            </Grid>
+          )}
+        </Grid>
+      </Container >
+      {!!selectedRecipe &&
+        <RecipeInfoModal selectedRecipe={selectedRecipe} onClose={() => {
+          setSelectedRecipe(null);
+        }} />
+      }
+    </div>
   );
 };

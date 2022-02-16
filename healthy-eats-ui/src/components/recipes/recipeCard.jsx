@@ -9,14 +9,14 @@ import Delete from "@mui/icons-material/Delete";
 import { Bookmark, BookmarkBorder } from '@mui/icons-material';
 import { useState } from 'react';
 
-export default function RecipeCard({ recipe, isDeletable, saveUnsaveRecipe, likeUnlikeRecipe }) {
+export default function RecipeCard({ recipe, isDeletable, saveUnsaveRecipe, likeUnlikeRecipe, onClick }) {
 
   const [isSaved, setIsSaved] = useState(recipe.isSaved);
   const [isLiked, setIsLiked] = useState(recipe.isLiked);
 
   return (
     <Card sx={{ maxWidth: 300 }}>
-      <CardHeader disableTypography="true"
+      <CardHeader disableTypography={true}
         action={
           <IconButton aria-label="settings" onClick={() => saveUnsaveRecipe(recipe, setIsSaved)} >
             {!isDeletable && (isSaved ? <Bookmark /> : <BookmarkBorder />)}
@@ -24,7 +24,7 @@ export default function RecipeCard({ recipe, isDeletable, saveUnsaveRecipe, like
         }
         title={recipe.foodTitle}
       />
-      <CardMedia
+      <CardMedia onClick={() => onClick(recipe)}
         component="img"
         height="250"
         image={recipe.foodImage}
