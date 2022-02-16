@@ -24,7 +24,6 @@ module.exports = (db) => {
   });
 
   router.put("/new",(req,res) => {
-    console.log("psoted recipe", req.body)
     var pad = function(num) { return ('00'+num).slice(-2) };
     let date = new Date();
     date = date.getUTCFullYear()         + '-' +

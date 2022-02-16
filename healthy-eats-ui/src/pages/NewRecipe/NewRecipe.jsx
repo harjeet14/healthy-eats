@@ -116,12 +116,11 @@ export function NewRecipe(props) {
                         {recipeIngredients.map((ingredient) => {
                             return (
                                 <div className="ingredients-list">
-                                    
                                     <h2>{ingredient.ingredient}</h2>
                                     <p>{ingredient.ingredientServings}</p>
                                     <p>{ingredient.ingredientUnit}</p>
-
-                                </div>
+                                    
+                                </div>  
                             );
                         })}
                     </div>

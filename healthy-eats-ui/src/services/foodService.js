@@ -91,6 +91,7 @@ class _FoodService {
 
     return recipes;
   }
+
 }
 
 const FoodService = new _FoodService();
