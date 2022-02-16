@@ -2,7 +2,7 @@ import { appConfig } from "../appConfig.example";
 
 const apiServiceUrl = appConfig?.apiService?.url ?? "http://localhost/";
 const apiServicePort = appConfig?.apiService?.port ?? 8080;
-
+//
 class _HttpService {
   async fetchData(path, method, bodyData, searchParams = {}, headers = {}) {
     searchParams = searchParams || {};

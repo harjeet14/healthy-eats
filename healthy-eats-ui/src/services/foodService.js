@@ -115,12 +115,15 @@ class _FoodService {
     return recipes;
   }
 
+<<<<<<< HEAD
   async getRecipeInfo(id) {
     const info = await HttpService.get(recipeInfoUrl.replace("{id}", id), {
       apiKey: foodApiToken,
     });
     return info;
   }
+=======
+>>>>>>> page/add-recipes
 }
 
 const FoodService = new _FoodService();

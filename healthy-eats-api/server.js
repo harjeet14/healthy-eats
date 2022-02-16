@@ -31,6 +31,20 @@ const usersRoutes = require("./routes/users");
 const ordersRoute = require("./routes/orders");
 const userSavedRecipes = require("./routes/savedRecipes");
 const userLikedRecipes = require("./routes/likedRecipes");
+
+// Mount all resource routes
+// Note: Feel free to replace the example routes below with your own
+app.use("/api/users", usersRoutes(db));
+// Note: mount other resources here, using the same pattern above
+
+// Home page
+// Warning: avoid creating more routes in this file!
+// Separate them into separate routes files (see above).
+
+app.get("/", (req, res) => {
+  res.render("index");
+});
+
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
 app.use("/api/users", usersRoutes(db));
@@ -39,5 +53,4 @@ app.use("/api/savedRecipes", userSavedRecipes(db));
 app.use("/api/likedRecipes", userLikedRecipes(db));
 
 app.listen(PORT, () => {
-  console.log(`The app listening on port ${PORT}`);
 });

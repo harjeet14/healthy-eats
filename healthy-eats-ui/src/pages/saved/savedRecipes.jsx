@@ -24,6 +24,7 @@ export function SavedRecipes() {
 
   };
 
+<<<<<<< HEAD
   const likeUnlikeRecipe = function (recipe, setIsLiked) {
 
     if (!recipe.isLiked) {
@@ -40,9 +41,32 @@ export function SavedRecipes() {
         });
     }
   };
+=======
+    const recipeIds = [];
+    HealthyEatsApiService.getSavedRecipes(sessionStorage.sessionUserId)
+      .then(res => {
+        console.log("recipes",res)
+        res?.forEach(element => {
+          console.log("recipe",element)
+          recipeIds.push(element.recipe_id);
+        });
+      })
+      .then(() => {
+        console.log(recipeIds)
+        FoodService.getRecipesBulk(recipeIds)
+          .then(res => {
+            console.log("res",res)
+            setRecipes(res);
+          });
+      })
+      .catch((error)=>console.log(error))
+      ;
+  }, []);
+>>>>>>> page/add-recipes
 
   useEffect(() => {
 
+<<<<<<< HEAD
     // inner function to avoid race condition
     async function inner() {
 
@@ -53,6 +77,14 @@ export function SavedRecipes() {
       savedRecipeIdObjects.forEach(element => {
         savedRecipeIds.push(element.recipe_id);
       });
+=======
+    </div>
+    {recipes.map((recipe) => <h2>{recipe}</h2>)}
+        
+    {recipes.map((recipe) => <SavedRecipeCard key={`recipe-${recipe.foodId}`}
+      recipe={recipe}
+    />)}
+>>>>>>> page/add-recipes
 
       const recipesBulk = await FoodService.getRecipesBulk(savedRecipeIds);
       recipesBulk.forEach(r => {
