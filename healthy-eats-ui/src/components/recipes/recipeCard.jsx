@@ -17,9 +17,9 @@ export default function RecipeCard({ recipe, isDeletable, saveUnsaveRecipe, like
   return (
     <Card sx={{ maxWidth: 300 }}>
       <CardHeader disableTypography={true}
-        action={
+        action={!isDeletable &&
           <IconButton aria-label="settings" onClick={() => saveUnsaveRecipe(recipe, setIsSaved)} >
-            {!isDeletable && (isSaved ? <Bookmark /> : <BookmarkBorder />)}
+            {isSaved ? <Bookmark /> : <BookmarkBorder />}
           </IconButton>
         }
         title={recipe.foodTitle}
