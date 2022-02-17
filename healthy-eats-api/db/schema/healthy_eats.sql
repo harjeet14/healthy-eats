@@ -53,15 +53,17 @@ CREATE TABLE meal_planner(
 );
 CREATE TABLE shopping_list(
   user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
-  ingredient_id INTEGER,
-  isChecked boolean
+  ingredient_id INTEGER NOT NULL,
+  ingredient_name VARCHAR(255) NOT NULL,
+  ingredient_image VARCHAR(255),
+  amount FLOAT NOT NULL,
+  unit VARCHAR(255),
+  is_checked boolean NOT NULL
 );
 CREATE TABLE cart(
   user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
   ingredient_id INTEGER
 );
-
-
 -- -- DailyOrder
 DROP TABLE IF EXISTS daily_orders CASCADE;
 CREATE TABLE daily_orders (
