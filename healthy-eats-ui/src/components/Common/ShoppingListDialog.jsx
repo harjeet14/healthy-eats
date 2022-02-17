@@ -65,7 +65,7 @@ export default function ShoppingListDialog(props) {
                     src={`https://spoonacular.com/cdn/ingredients_100x100/${ingredient.image}`}
                   />
                 </ListItemAvatar>
-                <ListItemText id={labelId} primary={`${ingredient.name}`} />
+                <ListItemText id={labelId} primary={`${ingredient.amount} ${ingredient.unit} ${ingredient.name}`} />
               </ListItemButton>
             </ListItem>
           );
