@@ -65,6 +65,7 @@ export default function RecipeCard({ recipe, isDeletable, saveUnsaveRecipe, like
         selectedValue={selectedValue}
         open={isOpen}
         onClose={handleClose}
+        recipe={recipe}
       />
     </div>
   );

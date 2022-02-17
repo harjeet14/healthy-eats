@@ -11,6 +11,7 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { blue } from '@mui/material/colors';
 import ShoppingListDialog from './ShoppingListDialog';
 import { useState } from 'react';
+import FoodService from '../../services/foodService';
 
 const dialogOptions = ['Shopping List'];
 
@@ -21,16 +22,21 @@ AddToDialog.propTypes = {
 };
 
 export default function AddToDialog(props) {
-  const { onClose, selectedValue, open } = props;
+  const { onClose, selectedValue, open, recipe } = props;
 
   const [isShoppingListDialogOpen, setIsShoppingListDialogOpen] = useState(false);
+  const [recipeIngredients, setRecipeIngredients] = useState([]);
 
   const handleClose = () => {
     onClose(selectedValue);
   };
 
-  const handleListItemClick = (value) => {
+  const handleListItemClick = async (value) => {
     if (value === 'Shopping List') {
+      let recipeInfo = await FoodService.getRecipeInfo(recipe.foodId);
+
+      setRecipeIngredients(recipeInfo.extendedIngredients);
+
       setIsShoppingListDialogOpen(true);
       onClose(value);
     }
@@ -60,6 +66,8 @@ export default function AddToDialog(props) {
       <ShoppingListDialog
         open={isShoppingListDialogOpen}
         onClose={handleShoppingListDialogClose}
+        recipeIngredients={recipeIngredients}
+        setIsShoppingListDialogOpen={setIsShoppingListDialogOpen}
       />
     </div>
   );
