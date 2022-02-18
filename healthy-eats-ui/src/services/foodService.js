@@ -5,6 +5,7 @@ import HttpService from "./httpService";
 const foodApiUrl = appConfig.foodApi.url;
 const recipesBulkApiUrl = appConfig.foodApi.recipesBulkApiUrl;
 const recipeInfoUrl = appConfig.foodApi.recipeInfoUrl;
+const ingredientListUrl= appConfig.foodApi.ingredientListUrl
 const foodApiToken = appConfig.foodApi.key;
 
 class _FoodService {
@@ -115,15 +116,24 @@ class _FoodService {
     return recipes;
   }
 
-<<<<<<< HEAD
   async getRecipeInfo(id) {
     const info = await HttpService.get(recipeInfoUrl.replace("{id}", id), {
       apiKey: foodApiToken,
     });
     return info;
   }
-=======
->>>>>>> page/add-recipes
+
+  async getIngredientsList(searchTerm){
+
+    const ingredients = await HttpService.get(
+      ingredientListUrl,
+      {
+        query: searchTerm,
+         number:4,
+      }
+    );
+    return ingredients.results;
+  }
 }
 
 const FoodService = new _FoodService();

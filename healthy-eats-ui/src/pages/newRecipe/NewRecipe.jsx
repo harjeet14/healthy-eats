@@ -1,7 +1,9 @@
 import axios from 'axios'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import styles from '../newRecipe/NewRecipe.scss'
 import HealthyEatsApiService from '../../services/healthyEatsApiService';
+import foodService from '../../services/foodService'
+import newRecipeIngredients from '../newRecipe/newRecipeIngredients/NewRecipeIngredients'
 
 
 
@@ -52,6 +54,15 @@ export function NewRecipe(props) {
         console.log("recipe ingredients are:",recipeIngredients)
     }
     
+    useEffect(()=>{
+        const ingredientList = foodService.getIngredientsList(ingredient);
+        ingredientExamples = ingredientList.map((ingredient) => {
+            return (
+                <newRecipeIngredients name={ingredient.name}/>
+            );
+        })
+      },[ingredient])
+
 
     return(
         <div className="overlay">
