@@ -51,6 +51,12 @@ class _HealthyEatsApiService {
     return res;
   }
 
+  async getShoppingList(userId) {
+
+    const recipeIds = await HttpService.get(`/api/shoppingLists/userId/${userId}`, null);
+
+    return recipeIds;
+  }
 }
 
 const HealthyEatsApiService = new _HealthyEatsApiService();

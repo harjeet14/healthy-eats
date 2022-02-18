@@ -43,8 +43,8 @@ module.exports = (db) => {
 
     db.query(query)
       .then(result => {
-        const ingridientIds = result.rows;
-        res.status(200).json(ingridientIds);
+        const ingridients = result.rows;
+        res.status(200).json(ingridients);
       })
       .catch(err => console.log(err));
   });

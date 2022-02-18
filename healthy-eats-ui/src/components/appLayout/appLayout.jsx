@@ -6,6 +6,7 @@ import { RecipesPage } from "../../pages/recipes/recipesPage";
 import { SavedRecipes } from "../../pages/saved/savedRecipes";
 import { SearchPage } from "../../pages/search/searchPage";
 import { AuthenticationGuard } from "../authenticationGuard";
+import { ShoppingList } from "../../pages/ShoppingList";
 import './appLayout.scss'
 
 
@@ -26,6 +27,7 @@ export function AppLayout({ children }) {
       <AppNavLink to="/recipes" >Recipes</AppNavLink>
       <AppNavLink to="/orderHistory" >Order history</AppNavLink>
       <AppNavLink to="/savedRecipes" >Saved</AppNavLink>
+      <AppNavLink to="/shoppingList" >Shopping</AppNavLink>
       {!sessionStorage.sessionUserFullName && <AppNavLink to="/login" >Login</AppNavLink>}
 
       {sessionStorage.sessionUserFullName && <a href="/login" onClick={(e) => {
@@ -66,6 +68,11 @@ export function AppLayout({ children }) {
         <Route path='/savedRecipes'
           element={<AuthenticationGuard>
             <SavedRecipes />
+          </AuthenticationGuard>} />
+
+        <Route path='/shoppingList'
+          element={<AuthenticationGuard>
+            <ShoppingList />
           </AuthenticationGuard>} />
 
         {/* <Route path='/cart'
