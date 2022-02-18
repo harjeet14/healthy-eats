@@ -43,6 +43,14 @@ class _HealthyEatsApiService {
 
     return res;
   }
+
+  async createShoppingList(ingredients) {
+
+    const res = await HttpService.post('/api/shoppingLists', ingredients);
+
+    return res;
+  }
+
 }
 
 const HealthyEatsApiService = new _HealthyEatsApiService();
