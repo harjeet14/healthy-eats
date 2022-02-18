@@ -11,6 +11,7 @@ import ListItemButton from '@mui/material/ListItemButton';
 import Checkbox from '@mui/material/Checkbox';
 import Button from '@mui/material/Button'
 import { useState, useEffect } from 'react';
+import HealthyEatsApiService from '../../services/healthyEatsApiService';
 
 ShoppingListDialog.propTypes = {
   onClose: PropTypes.func.isRequired,
@@ -36,8 +37,21 @@ export default function ShoppingListDialog(props) {
   };
 
   const submitItemsToList = () => {
-    alert(`Submitted items: ${checkedIngredients}`);
     setIsShoppingListDialogOpen(false);
+    const shoppingList = recipeIngredients
+      .filter(i => checkedIngredients.some(ch => ch === i.id))
+      .map(i => {
+        return {
+          userId: sessionStorage.sessionUserId,
+          ingredientId: i.id,
+          ingredientName: i.name,
+          ingredientImage: i.image,
+          amount: i.amount,
+          unit: i.unit,
+          isChecked: true
+        }
+      });
+    HealthyEatsApiService.createShoppingList(shoppingList);
   };
 
   return (

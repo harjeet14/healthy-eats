@@ -3,33 +3,32 @@ const router = express.Router();
 
 module.exports = (db) => {
   router.post("/", (req, res) => {
-    const userId = req.query.userId;
-    const ingredientId = req.query.ingredientId;
-    const ingredientName = req.query.ingredientName;
-    const ingredientImage = req.query.ingredientImage;
-    const amount = req.query.amount;
-    const unit = req.query.unit;
-    const isChecked = req.query.isChecked;
-    let queryText = `insert into shopping_list (user_id, ingredient_id, ingredient_name, ingredient_image, amount, unit, is_checked) values ($1,$2,$3,$4,$5,$6,$7)
-     RETURNING *`;
-    const query = {
-      text: queryText,
-      values: [
-        req.query.userId,
-        req.query.ingredientId,
-        req.query.ingredientName,
-        req.query.ingredientImage,
-        req.query.amount,
-        req.query.unit,
-        req.query.isChecked,
-      ]
-    };
 
-    db.query(query)
-      .then(result => {
+    const shoppingListItems = req.body;
+
+    const queries = [];
+    shoppingListItems.forEach(ingredient => {
+      queries.push(db.query(
+        `insert into shopping_list
+        (user_id, ingredient_id, ingredient_name, ingredient_image, amount, unit, is_checked)
+        VALUES ($1, $2, $3, $4, $5, $6, $7)`,
+        [
+          ingredient.userId,
+          ingredient.ingredientId,
+          ingredient.ingredientName,
+          ingredient.ingredientImage,
+          ingredient.amount,
+          ingredient.unit,
+          ingredient.isChecked
+        ]
+      ));
+    });
+
+    Promise.all(queries)
+      .then((values) => {
         res.status(201).json({});
-      })
-      .catch(err => console.log(err));
+      });
+
   });
 
   router.get("/userId/:userId", (req, res) => {
