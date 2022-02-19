@@ -52,13 +52,14 @@ CREATE TABLE meal_planner(
   dateTime DATE NOT NULL
 );
 CREATE TABLE shopping_list(
+  id SERIAL PRIMARY KEY NOT NULL,
   user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
   ingredient_id INTEGER NOT NULL,
   ingredient_name VARCHAR(255) NOT NULL,
   ingredient_image VARCHAR(255),
   amount FLOAT NOT NULL,
   unit VARCHAR(255),
-  is_checked boolean NOT NULL
+  is_checked BIT NOT NULL
 );
 CREATE TABLE cart(
   user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,

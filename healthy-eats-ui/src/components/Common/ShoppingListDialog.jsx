@@ -42,13 +42,14 @@ export default function ShoppingListDialog(props) {
       .filter(i => checkedIngredients.some(ch => ch === i.id))
       .map(i => {
         return {
+          id: i.id,
           userId: sessionStorage.sessionUserId,
           ingredientId: i.id,
           ingredientName: i.name,
           ingredientImage: i.image,
           amount: i.amount,
           unit: i.unit,
-          isChecked: true
+          isChecked: 0
         }
       });
     HealthyEatsApiService.createShoppingList(shoppingList);
