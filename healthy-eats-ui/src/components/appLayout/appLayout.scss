@@ -37,6 +37,6 @@ $navHeight: 50px;
 
     &-content {
         background-color: whitesmoke;
-        // height: calc(200vh - 50px);
+        min-height: calc(100vh - 50px);
     }
 }
