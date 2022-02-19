@@ -28,7 +28,21 @@ module.exports = (db) => {
       .then((values) => {
         res.status(201).json({});
       });
+  });
 
+  router.delete("/:id", (req, res) => {
+
+    const shoppingListItemId = req.params.id;
+
+    db.query(
+      `delete from shopping_list
+        where id = $1`,
+      [
+        shoppingListItemId
+      ]
+    ).then((values) => {
+      res.status(204).json({});
+    });
   });
 
   router.put("/", (req, res) => {

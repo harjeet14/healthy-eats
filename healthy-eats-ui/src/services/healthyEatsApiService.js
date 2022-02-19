@@ -51,6 +51,13 @@ class _HealthyEatsApiService {
     return res;
   }
 
+  async deleteShoppingListItem(ingredientId) {
+
+    const res = await HttpService.delete(`/api/shoppingLists/${ingredientId}`);
+
+    return res;
+  }
+
   async updateShoppingListItem(ingredient) {
 
     const res = await HttpService.put('/api/shoppingLists', ingredient);
