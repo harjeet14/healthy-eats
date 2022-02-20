@@ -4,9 +4,9 @@ class _HealthyEatsApiService {
 
   async getSavedRecipes(userId) {
 
-    const recipeIds = await HttpService.get(`/api/savedRecipes/userId/${userId}`, null);
+    const savedRecipes = await HttpService.get(`/api/savedRecipes/userId/${userId}`, null);
 
-    return recipeIds;
+    return savedRecipes;
   }
 
   async createSavedRecipes(userId, recipeId, foodTitle, foodImage) {

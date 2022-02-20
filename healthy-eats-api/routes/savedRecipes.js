@@ -55,7 +55,7 @@ module.exports = (db) => {
 
   router.get("/userId/:userId", (req, res) => {
     const userId = req.params.userId;
-    let queryText = `select recipe_id from saved_recipes where user_id = $1`;
+    let queryText = `select recipe_id, food_title, food_image from saved_recipes where user_id = $1`;
     const query = {
       text: queryText,
       values: [
@@ -65,8 +65,8 @@ module.exports = (db) => {
 
     db.query(query)
       .then(result => {
-        const recipeIds = result.rows;
-        res.status(200).json(recipeIds);
+        const savedRecipes = result.rows;
+        res.status(200).json(savedRecipes);
       })
       .catch(err => console.log(err));
   });

@@ -46,19 +46,16 @@ export function SavedRecipes() {
     // inner function to avoid race condition
     async function inner() {
 
-      const savedRecipeIdObjects = await HealthyEatsApiService.getSavedRecipes(sessionStorage.sessionUserId);
+      const savedRecipes = await HealthyEatsApiService.getSavedRecipes(sessionStorage.sessionUserId);
       const likedRecipes = await HealthyEatsApiService.getLikedRecipes(sessionStorage.sessionUserId);
 
-      const savedRecipeIds = [];
-      savedRecipeIdObjects.forEach(element => {
-        savedRecipeIds.push(element.recipe_id);
-      });
-
-      const recipesBulk = await FoodService.getRecipesBulk(savedRecipeIds);
-      recipesBulk.forEach(r => {
+      savedRecipes.forEach(r => {
+        r.foodId = r.recipe_id;
+        r.foodTitle = r.food_title;
+        r.foodImage = r.food_image;
         r.isLiked = likedRecipes.some(sr => sr.recipe_id === r.foodId);
       });
-      setRecipes(recipesBulk);
+      setRecipes(savedRecipes);
     }
 
     inner();
