@@ -9,30 +9,51 @@ import Button from '@mui/material/Button'
 import { useState } from 'react';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
-
+import FoodService from '../../services/foodService';
 
 export default function AddToPlannerDialog(props) {
 
   const { onClose, open, recipe } = props;
-  const [value, setValue] = useState(null);
-  const [meal, setMeal] = useState('Breakfast');
+  const [date, setDate] = useState(null);
+  const [meal, setMeal] = useState('B');
 
   const handleChange = (event) => {
     setMeal(event.target.value);
   };
 
-
   const addRecipeToPlanner = async () => {
 
-    // const payload = {
-    //   date: selectedDate,
-    //   breakfast: selected.breakfast,
-    //   lunch: selected.lunch,
-    //   dinner: selected.dinner,
-    //   userId: sessionStorage.sessionUserId
-    // };
+    console.log(`Date: ${date}`);
+    console.log(`Meal: ${meal}`);
 
-    // await FoodService.saveDayOrder(payload);
+    const mealOrder = {
+      calories: 101.663,
+      foodId: recipe.foodId,
+      foodTitle: recipe.foodTitle,
+      foodImage: recipe.foodImage
+    }
+
+    const breakfast = [];
+    const lunch = [];
+    const dinner = [];
+
+    if (meal === 'B') {
+      breakfast.push(mealOrder);
+    } else if (meal === 'L') {
+      lunch.push(mealOrder);
+    } else {
+      dinner.push(mealOrder);
+    }
+
+    const payload = {
+      date: `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`,
+      breakfast: breakfast,
+      lunch: lunch,
+      dinner: dinner,
+      userId: sessionStorage.sessionUserId
+    };
+
+    await FoodService.saveDayOrder(payload);
   }
 
   return (
@@ -41,9 +62,9 @@ export default function AddToPlannerDialog(props) {
       <LocalizationProvider dateAdapter={AdapterDateFns}>
         <DatePicker
           label="Pick a date"
-          value={value}
+          value={date}
           onChange={(newValue) => {
-            setValue(newValue);
+            setDate(newValue);
           }}
           renderInput={(params) => <TextField {...params} />}
         />
