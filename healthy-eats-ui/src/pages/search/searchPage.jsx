@@ -89,7 +89,7 @@ export function SearchPage() {
         <Box display="flex" justifyContent="center" padding={2} >
           <TextField id="outlined-search" label="Search" type="search"
             onChange={(e) => setSearchTerm(e.target.value)} />
-          <Button onClick={fetchRecipes}>Submit</Button>
+          <Button sx={{ color: 'text.primary', fontWeight: 'bold' }} onClick={fetchRecipes} >Submit</Button>
         </Box>
         <Grid container marginX={20} spacing={{ lg: 2 }} columns={{ lg: 4 }} >
           {recipes.map((recipe, index) =>

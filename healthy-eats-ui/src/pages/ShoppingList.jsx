@@ -9,6 +9,8 @@ import Checkbox from '@mui/material/Checkbox';
 import { useState, useEffect } from 'react';
 import { Button, DialogTitle } from '@mui/material';
 import HealthyEatsApiService from '../services/healthyEatsApiService';
+import { borders } from '@mui/system';
+import { Typography } from '@mui/material';
 
 export function ShoppingList() {
 
@@ -65,8 +67,8 @@ export function ShoppingList() {
 
   return (
     <div>
-      <List dense sx={{ borderRadius: 5, left: '19%', top: '60%', zIndex: 'tooltip', width: '60%', maxWidth: '360', bgcolor: 'background.paper' }}>
-        <DialogTitle sx={{ top: 5 }}>Shopping List</DialogTitle>
+      <List dense sx={{ borderTop: 1, borderBottom: 1, borderRadius: 5, left: '19%', margin: '50', zIndex: 'tooltip', width: '60%', maxWidth: '360', bgcolor: 'background.paper' }}>
+        <DialogTitle sx={{ top: '15%' }}>Shopping List</DialogTitle>
         {unCheckedItems.map((ingredient) => {
           const labelId = `checkbox-list-secondary-label-${ingredient.ingredient_id}`;
           return (
@@ -94,10 +96,13 @@ export function ShoppingList() {
           );
         })}
       </List>
-      <DialogTitle align='center' sx={{ top: 5 }}>Checked Items
+      {/* <DialogTitle align='center' sx={{ top: 5 }}>Checked Items
         <Button onClick={() => clearCheckedIngredients()}>Clear</Button>
-      </DialogTitle>
-      <List dense sx={{ borderRadius: 5, left: '19%', top: '10%', zIndex: 'tooltip', width: '60%', maxWidth: '360', bgcolor: 'background.paper' }}>
+      </DialogTitle> */}
+      <List dense sx={{ borderTop: 1, borderBottom: 1, borderRadius: 5, left: '19%', top: '10%', zIndex: 'tooltip', width: '60%', maxWidth: '360', bgcolor: 'background.paper' }}>
+        <DialogTitle sx={{ top: 5 }}>Checked Items
+          <Button sx={{ color: 'text.primary', fontWeight: 'bold' }} onClick={() => clearCheckedIngredients()}>Clear</Button>
+        </DialogTitle>
         {checkedItems.map((ingredient) => {
           const labelId = `checkbox-list-secondary-label-${ingredient.ingredient_id}`;
           return (

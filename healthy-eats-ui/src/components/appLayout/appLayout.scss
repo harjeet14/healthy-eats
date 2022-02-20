@@ -8,7 +8,7 @@ $navHeight: 50px;
         width: 100vw;
         display: flex;
         height: $navHeight;
-        background-color: rgb(190, 190, 205);
+        background-color:rgb(186, 215, 215);
         align-items: center;
 
         & > a {
@@ -17,19 +17,22 @@ $navHeight: 50px;
             flex: 1;
             margin: 0 20px;
             text-align: center;
-
+            font-size: medium;
+            
             
 
             &:visited{
-                color: rgb(110, 0, 200);
+                color: rgb(10, 10, 11);
+                
             }
 
             &.activeRoute{
-                color: rgb(100, 100, 100);
+                color:rgb(41, 144, 144);
+              
             }
 
             &:hover{
-                text-shadow: 0px 0px 2px gray;
+                text-shadow: 0px 0px 2px rgb(81, 78, 78);
             }
             
         }
