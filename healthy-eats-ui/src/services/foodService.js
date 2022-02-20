@@ -124,15 +124,15 @@ class _FoodService {
   }
 
   async getIngredientsList(searchTerm){
-
     const ingredients = await HttpService.get(
       ingredientListUrl,
       {
+        apiKey: foodApiToken,
         query: searchTerm,
-         number:4,
-      }
-    );
-    return ingredients.results;
+       
+      });
+    console.log("ingredients", ingredients.results)
+     return ingredients.results;
   }
 }
 

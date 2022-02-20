@@ -42,8 +42,12 @@ CREATE TABLE created_recipes(
   avg_rating SMALLINT NOT NULL DEFAULT 0
 );
 CREATE TABLE created_recipes_ingredients(
+  ingredient_id SERIAL PRIMARY KEY NOT NULL,
   created_recipe_id INTEGER REFERENCES created_recipes(recipe_id) ON DELETE CASCADE,
-  ingredient_id INTEGER
+  ingredient_name VARCHAR(255),
+  ingredient_servings INTEGER,
+  ingredient_unit TEXT
+
 );
 CREATE TABLE meal_planner(
   user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,

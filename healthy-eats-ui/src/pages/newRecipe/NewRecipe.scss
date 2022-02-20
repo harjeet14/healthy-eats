@@ -58,9 +58,27 @@
     }
     
 }
+.ingredients-list{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: space-between;
+    margin:20px;
 
+}
+.ingredient{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    height: 20px;
+    margin:5px;
+}
 
-
+.delete-button{
+    height: 20px;
+    margin: 0px;
+}
 
   
 .closeButton{
