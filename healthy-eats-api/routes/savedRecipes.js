@@ -6,13 +6,20 @@ module.exports = (db) => {
     // if (req.session.user) {
     const recipeId = req.query.recipeId;
     const userId = req.query.userId;
-    let queryText = `insert into saved_recipes (user_id, recipe_id) values ($1,$2)
+    const foodTitle = req.query.foodTitle;
+    const foodImage = req.query.foodImage;
+    let queryText =
+      `insert into saved_recipes
+      (user_id, recipe_id, food_title, food_image) values
+      ($1, $2, $3, $4)
      RETURNING *`;
     const query = {
       text: queryText,
       values: [
         userId,
-        recipeId
+        recipeId,
+        foodTitle,
+        foodImage
       ]
     };
 
