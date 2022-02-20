@@ -47,7 +47,11 @@ export function SearchPage() {
   const saveUnsaveRecipe = function (recipe, setIsSaved) {
 
     if (!recipe.isSaved) {
-      HealthyEatsApiService.createSavedRecipes(sessionStorage.sessionUserId, recipe.foodId)
+      HealthyEatsApiService.createSavedRecipes(
+        sessionStorage.sessionUserId,
+        recipe.foodId,
+        recipe.foodTitle,
+        recipe.foodImage)
         .then((res) => {
           setIsSaved(true);
           recipe.isSaved = true;
