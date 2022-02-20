@@ -7,13 +7,15 @@ import ListItemAvatar from '@mui/material/ListItemAvatar';
 import ListItemText from '@mui/material/ListItemText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Dialog from '@mui/material/Dialog';
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { blue } from '@mui/material/colors';
 import ShoppingListDialog from './ShoppingListDialog';
 import { useState } from 'react';
 import FoodService from '../../services/foodService';
+import AddToPlannerDialog from './AddToPlannerDialog';
+import DateRangeIcon from '@mui/icons-material/DateRange';
+import PlaylistAddIcon from '@mui/icons-material/PlaylistAdd';
 
-const dialogOptions = ['Shopping List'];
+const dialogOptions = ['Planner', 'Shopping List'];
 
 AddToDialog.propTypes = {
   onClose: PropTypes.func.isRequired,
@@ -27,6 +29,8 @@ export default function AddToDialog(props) {
   const [isShoppingListDialogOpen, setIsShoppingListDialogOpen] = useState(false);
   const [recipeIngredients, setRecipeIngredients] = useState([]);
 
+  const [isAddToPlannerDialogOpen, setIsAddToPlannerDialogOpen] = useState(false);
+
   const handleClose = () => {
     onClose(selectedValue);
   };
@@ -39,11 +43,18 @@ export default function AddToDialog(props) {
 
       setIsShoppingListDialogOpen(true);
       onClose(value);
+    } else {
+      setIsAddToPlannerDialogOpen(true);
+      onClose(value);
     }
   };
 
   const handleShoppingListDialogClose = () => {
     setIsShoppingListDialogOpen(false);
+  };
+
+  const handleAddToPlannerDialogClose = () => {
+    setIsAddToPlannerDialogOpen(false);
   };
 
   return (
@@ -55,7 +66,7 @@ export default function AddToDialog(props) {
             <ListItem button onClick={() => handleListItemClick(dialogOption)} key={dialogOption}>
               <ListItemAvatar>
                 <Avatar sx={{ bgcolor: blue[100], color: blue[600] }}>
-                  <ShoppingCartIcon />
+                  {dialogOption === 'Planner' ? <DateRangeIcon /> : <PlaylistAddIcon />}
                 </Avatar>
               </ListItemAvatar>
               <ListItemText primary={dialogOption} />
@@ -63,6 +74,11 @@ export default function AddToDialog(props) {
           ))}
         </List>
       </Dialog>
+      <AddToPlannerDialog
+        open={isAddToPlannerDialogOpen}
+        onClose={handleAddToPlannerDialogClose}
+        isAddToPlannerDialogOpen={isAddToPlannerDialogOpen}
+      />
       <ShoppingListDialog
         open={isShoppingListDialogOpen}
         onClose={handleShoppingListDialogClose}
