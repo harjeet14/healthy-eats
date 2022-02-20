@@ -1,13 +1,14 @@
 .calendar {
-    border: solid 1px gray;
+    // border: solid 1px gray;
     width: 100vw;
     padding: 20px;
     display: flex;
     flex-direction: column;
-
+    
     &-navigtion {
         user-select: none;
         padding: 10px ;
+       
         button{
             width: 75px;
             border: solid 1px gray;
@@ -29,8 +30,10 @@
 
     &-header-row {
         display: flex;
+        
         &-cell{
             border: solid 1px gray;
+            border-radius: 5px;
             flex: 1;
             display: flex;
             justify-content: center;
@@ -45,6 +48,7 @@
 
     &-row{
         display: flex;
+      
         &-cell{
             &-calories{
                 background-color: rgba(255, 165, 0, 0.5);
@@ -61,7 +65,7 @@
             flex-direction: column;
             justify-content: flex-start;
             &.otherMonth {
-                background-color: rgb(200, 202, 200);
+                background-color: rgb(223, 222, 222);
                 cursor: default;
             }
             &-header{
