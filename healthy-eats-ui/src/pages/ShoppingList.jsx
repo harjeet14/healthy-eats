@@ -15,11 +15,14 @@ export function ShoppingList() {
   const [unCheckedItems, setUnCheckedItems] = useState([]);
   const [checkedItems, setCheckedItems] = useState([]);
 
-  useEffect(async () => {
-    const shoppingList = await HealthyEatsApiService.getShoppingList(sessionStorage.sessionUserId);
+  useEffect(() => {
+    HealthyEatsApiService.getShoppingList(sessionStorage.sessionUserId)
+      .then((shoppingList) => {
 
-    setUnCheckedItems(shoppingList.filter(item => item.is_checked === '0'));
-    setCheckedItems(shoppingList.filter(item => item.is_checked === '1'));
+        setUnCheckedItems((shoppingList || []).filter(item => item.is_checked === '0'));
+        setCheckedItems((shoppingList || []).filter(item => item.is_checked === '1'));
+
+      });
   }, []);
 
   const handleToggle = async (ingredient, check) => {
@@ -65,8 +68,8 @@ export function ShoppingList() {
 
   return (
     <div>
-      <List dense sx={{ borderRadius: 5, left: '19%', top: '60%', zIndex: 'tooltip', width: '60%', maxWidth: '360', bgcolor: 'background.paper' }}>
-        <DialogTitle sx={{ top: 5 }}>Shopping List</DialogTitle>
+      <List dense sx={{ borderTop: 1, borderBottom: 1, borderRadius: 5, left: '19%', margin: '50', zIndex: 'tooltip', width: '60%', maxWidth: '360', bgcolor: 'background.paper' }}>
+        <DialogTitle sx={{ top: '15%' }}>Shopping List</DialogTitle>
         {unCheckedItems.map((ingredient) => {
           const labelId = `checkbox-list-secondary-label-${ingredient.ingredient_id}`;
           return (
@@ -94,10 +97,11 @@ export function ShoppingList() {
           );
         })}
       </List>
-      <DialogTitle align='center' sx={{ top: 5 }}>Checked Items
-        <Button onClick={() => clearCheckedIngredients()}>Clear</Button>
-      </DialogTitle>
-      <List dense sx={{ borderRadius: 5, left: '19%', top: '10%', zIndex: 'tooltip', width: '60%', maxWidth: '360', bgcolor: 'background.paper' }}>
+
+      <List dense sx={{ borderTop: 1, borderBottom: 1, borderRadius: 5, left: '19%', top: '10%', zIndex: 'tooltip', width: '60%', maxWidth: '360', bgcolor: 'background.paper' }}>
+        <DialogTitle sx={{ top: 5 }}>Checked Items
+          <Button sx={{ display: 'flex', float: 'right', color: 'text.primary', fontWeight: 'bold', display: 'inline-flex' }} onClick={() => clearCheckedIngredients()}>Clear</Button>
+        </DialogTitle>
         {checkedItems.map((ingredient) => {
           const labelId = `checkbox-list-secondary-label-${ingredient.ingredient_id}`;
           return (

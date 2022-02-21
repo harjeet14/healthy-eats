@@ -22,7 +22,8 @@ CREATE TABLE saved_recipes (
   user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
   recipe_id INTEGER,
   food_title VARCHAR(300),
-  food_image VARCHAR(500)
+  food_image VARCHAR(500),
+  calories REAL
 );
 CREATE TABLE recipe_likes(
   user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,

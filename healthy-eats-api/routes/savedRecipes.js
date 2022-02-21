@@ -8,10 +8,11 @@ module.exports = (db) => {
     const userId = req.query.userId;
     const foodTitle = req.query.foodTitle;
     const foodImage = req.query.foodImage;
+    const calories = req.query.calories;
     let queryText =
       `insert into saved_recipes
-      (user_id, recipe_id, food_title, food_image) values
-      ($1, $2, $3, $4)
+      (user_id, recipe_id, food_title, food_image, calories) values
+      ($1, $2, $3, $4, $5)
      RETURNING *`;
     const query = {
       text: queryText,
@@ -19,7 +20,8 @@ module.exports = (db) => {
         userId,
         recipeId,
         foodTitle,
-        foodImage
+        foodImage,
+        calories
       ]
     };
 
@@ -115,7 +117,7 @@ module.exports = (db) => {
 
   router.get("/userId/:userId", (req, res) => {
     const userId = req.params.userId;
-    let queryText = `select recipe_id, food_title, food_image from saved_recipes where user_id = $1`;
+    let queryText = `select recipe_id, food_title, food_image, calories from saved_recipes where user_id = $1`;
     const query = {
       text: queryText,
       values: [
