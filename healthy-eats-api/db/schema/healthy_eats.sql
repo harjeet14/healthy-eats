@@ -20,7 +20,9 @@ CREATE TABLE users (
 
 CREATE TABLE saved_recipes (
   user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
-  recipe_id INTEGER
+  recipe_id INTEGER,
+  food_title VARCHAR(300),
+  food_image VARCHAR(500)
 );
 CREATE TABLE recipe_likes(
   user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
@@ -35,7 +37,8 @@ CREATE TABLE created_recipes(
   recipe_id SERIAL PRIMARY KEY NOT NULL,
   user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
   recipe_title VARCHAR(255) NOT NULL,
-  recipe_description VARCHAR(255) NOT NULL,
+  recipe_description TEXT NOT NULL,
+  recipe_instructions TEXT NOT NULL,
   recipe_price numeric,
   recipe_image_urls VARCHAR(255) NOT NULL,
   created_at date NOT NULL,
@@ -55,13 +58,14 @@ CREATE TABLE meal_planner(
   dateTime DATE NOT NULL
 );
 CREATE TABLE shopping_list(
+  id SERIAL PRIMARY KEY NOT NULL,
   user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
   ingredient_id INTEGER NOT NULL,
   ingredient_name VARCHAR(255) NOT NULL,
   ingredient_image VARCHAR(255),
   amount FLOAT NOT NULL,
   unit VARCHAR(255),
-  is_checked boolean NOT NULL
+  is_checked BIT NOT NULL
 );
 CREATE TABLE cart(
   user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,

@@ -6,13 +6,20 @@ module.exports = (db) => {
     // if (req.session.user) {
     const recipeId = req.query.recipeId;
     const userId = req.query.userId;
-    let queryText = `insert into saved_recipes (user_id, recipe_id) values ($1,$2)
+    const foodTitle = req.query.foodTitle;
+    const foodImage = req.query.foodImage;
+    let queryText =
+      `insert into saved_recipes
+      (user_id, recipe_id, food_title, food_image) values
+      ($1, $2, $3, $4)
      RETURNING *`;
     const query = {
       text: queryText,
       values: [
         userId,
-        recipeId
+        recipeId,
+        foodTitle,
+        foodImage
       ]
     };
 
@@ -35,9 +42,9 @@ module.exports = (db) => {
             pad(date.getUTCSeconds());
     
     let query = {
-      text: `insert into created_recipes (user_id, recipe_title, recipe_description, recipe_image_urls, created_at) values ($1,$2,$3, $4,$5)
+      text: `insert into created_recipes (user_id, recipe_title, recipe_description, recipe_instructions, recipe_image_urls, created_at) values ($1,$2,$3, $4,$5, $6)
       RETURNING *`,
-      values: [`${parseInt(req.body.userId)}`,`${req.body.newRecipe.recipeTitle}`,`${req.body.newRecipe.recipeDescription}`, `${req.body.newRecipe.recipeImageUrls}`, `${date}`]
+      values: [`${parseInt(req.body.userId)}`,`${req.body.newRecipe.recipeTitle}`,`${req.body.newRecipe.recipeDescription}`,`${req.body.newRecipe.recipeInstructions}`, `${req.body.newRecipe.recipeImageUrls}`, `${date}`]
     };
     db.query(query)
       .then(result=>{
@@ -64,6 +71,25 @@ module.exports = (db) => {
 
   })
 
+  router.get("/createdRecipes/userId/:userId", (req,res)=>{
+    const userId = req.params.userId;
+    console.log("req", req.params)
+    
+
+    let query = {
+      text: `select * from created_recipes where user_id = $1`,
+      values: [`${userId}`]
+    }
+    db.query(query)
+    .then(result=>{
+    console.log("results", result.rows)
+      
+      const createdRecipes = result.rows
+      res.status(200).json(createdRecipes)
+    })
+    .catch(err=>console.log("err",err))
+  })
+
   router.delete("/", (req, res) => {
     // if (req.session.user) {
     const recipeId = req.query.recipeId;
@@ -84,13 +110,12 @@ module.exports = (db) => {
       .then(result => {
         res.status(204).json();
       })
-      .catch(err => console.log(err));
+      .catch(err => console.log("error is",err));
   });
 
   router.get("/userId/:userId", (req, res) => {
     const userId = req.params.userId;
-    console.log("geting saved recipes")
-    let queryText = `select recipe_id from saved_recipes where user_id = $1`;
+    let queryText = `select recipe_id, food_title, food_image from saved_recipes where user_id = $1`;
     const query = {
       text: queryText,
       values: [
@@ -100,8 +125,8 @@ module.exports = (db) => {
 
     db.query(query)
       .then(result => {
-        const recipeIds = result.rows;
-        res.status(200).json(recipeIds);
+        const savedRecipes = result.rows;
+        res.status(200).json(savedRecipes);
       })
       .catch(err => console.log(err));
   });

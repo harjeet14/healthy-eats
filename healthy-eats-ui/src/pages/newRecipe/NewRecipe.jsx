@@ -11,13 +11,14 @@ export function NewRecipe(props) {
 
     const [recipeTitle, setRecipeTitle] = useState("")
     const [recipeDescription, setRecipeDescription] = useState("")
+    const [recipeInstructions, setRecipeInstructions] = useState("")
+
     const [recipeImageUrls, setRecipeImageUrls] = useState("")
     const [recipeIngredients, setRecipeIngredients] = useState([])
     const [ingredient, setIngredient] = useState("")
     const [ingredientServings, setIngredientServings] = useState("1")
     const [ingredientUnit, setIngredientUnit] = useState("Cups")
 
-    const [ingredientExamples, setIngredientExamples] = useState([]);
 
     const setIsNewRecipeActive = props.handleClick;
 
@@ -31,6 +32,7 @@ export function NewRecipe(props) {
        const newRecipe = {
            recipeTitle,
            recipeDescription,
+           recipeInstructions,
            recipeImageUrls,
            recipeIngredients           
        }
@@ -81,6 +83,12 @@ export function NewRecipe(props) {
                     type="text"
                     value={recipeDescription}
                     onChange={(e) => setRecipeDescription(e.target.value)}
+                    />
+                    <label>Instructions</label>
+                    <input  
+                    type="text"
+                    value={recipeInstructions}
+                    onChange={(e) => setRecipeInstructions(e.target.value)}
                     />
                     <label>Add Picture</label>
                     <input  

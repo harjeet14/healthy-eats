@@ -1,0 +1,32 @@
+input {
+padding: 10px;
+outline: none;
+border: 1px solid #ccc;
+width: 400px;
+font-size: 18px;
+border-radius: 10px;
+margin: 40px 20px 40px 0px;
+}
+
+button {
+width: 70px;
+font-size: 18px;
+border: 1px solid #ccc;
+padding: 5px;
+color: #fff;
+background-color: rgb(223, 166, 97);
+margin: 160px;
+border-radius: 10px;
+outline: none;
+margin: 40px ;
+    &:hover{
+        box-shadow: gray 0 0 3px;
+    }
+    &:active{
+        box-shadow: gray 0 0 1px;
+    }
+
+
+}
+
+      
