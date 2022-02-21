@@ -9,14 +9,15 @@ class _HealthyEatsApiService {
     return savedRecipes;
   }
 
-  async createSavedRecipes(userId, recipeId, foodTitle, foodImage) {
+  async createSavedRecipes(userId, recipeId, foodTitle, foodImage, calories) {
 
     const res = await HttpService.post('/api/savedRecipes', null,
       {
         'userId': userId,
         'recipeId': recipeId,
         'foodTitle': foodTitle,
-        'foodImage': foodImage
+        'foodImage': foodImage,
+        'calories': calories
       });
 
     return res;
