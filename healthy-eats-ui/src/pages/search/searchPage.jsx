@@ -51,7 +51,8 @@ export function SearchPage() {
         sessionStorage.sessionUserId,
         recipe.foodId,
         recipe.foodTitle,
-        recipe.foodImage)
+        recipe.foodImage,
+        recipe.calories)
         .then((res) => {
           setIsSaved(true);
           recipe.isSaved = true;

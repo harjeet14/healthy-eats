@@ -77,7 +77,7 @@ export default function AddToDialog(props) {
       <AddToPlannerDialog
         open={isAddToPlannerDialogOpen}
         onClose={handleAddToPlannerDialogClose}
-        isAddToPlannerDialogOpen={isAddToPlannerDialogOpen}
+        setIsAddToPlannerDialogOpen={setIsAddToPlannerDialogOpen}
         recipe={recipe}
       />
       <ShoppingListDialog

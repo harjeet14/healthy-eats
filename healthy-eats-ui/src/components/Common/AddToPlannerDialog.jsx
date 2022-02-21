@@ -13,7 +13,7 @@ import FoodService from '../../services/foodService';
 
 export default function AddToPlannerDialog(props) {
 
-  const { onClose, open, recipe } = props;
+  const { onClose, open, recipe, setIsAddToPlannerDialogOpen } = props;
   const [date, setDate] = useState(null);
   const [meal, setMeal] = useState('B');
 
@@ -23,14 +23,11 @@ export default function AddToPlannerDialog(props) {
 
   const addRecipeToPlanner = async () => {
 
-    console.log(`Date: ${date}`);
-    console.log(`Meal: ${meal}`);
-
     const mealOrder = {
-      calories: 101.663,
       foodId: recipe.foodId,
       foodTitle: recipe.foodTitle,
-      foodImage: recipe.foodImage
+      foodImage: recipe.foodImage,
+      calories: recipe.calories
     }
 
     const breakfast = [];
@@ -54,6 +51,7 @@ export default function AddToPlannerDialog(props) {
     };
 
     await FoodService.saveDayOrder(payload);
+    setIsAddToPlannerDialogOpen(false);
   }
 
   return (
