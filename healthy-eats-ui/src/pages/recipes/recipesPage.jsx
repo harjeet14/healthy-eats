@@ -33,12 +33,9 @@ export function RecipesPage() {
       console.log("new recipes", newRecipes)
       console.log("new recipes2", newRecipes2)
 
-
-
       setRecipes(newRecipes2)
 
     }
-    console.log("recipes", recipes)
     fetchData();
   }, [])
 
@@ -69,11 +66,5 @@ export function RecipesPage() {
       <button onClick={handleNewRecipeClick}>Or add your own!</button>
       {isNewRecipeActive && <NewRecipe handleClick={() => { setIsNewRecipeActive(false) }} />}
     </div>
-
-
-
-
-
-
   );
 };
