@@ -75,7 +75,7 @@ export default function AddToPlannerDialog(props) {
         <MenuItem value={'L'}>Lunch</MenuItem>
         <MenuItem value={'D'}>Dinner</MenuItem>
       </Select>
-      <Button onClick={addRecipeToPlanner}>
+      <Button sx={{ color: 'text.primary', fontWeight: 'bold' }} onClick={addRecipeToPlanner}>
         Submit
       </Button>
     </Dialog >

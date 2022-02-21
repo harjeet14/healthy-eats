@@ -96,12 +96,10 @@ export function ShoppingList() {
           );
         })}
       </List>
-      {/* <DialogTitle align='center' sx={{ top: 5 }}>Checked Items
-        <Button onClick={() => clearCheckedIngredients()}>Clear</Button>
-      </DialogTitle> */}
+
       <List dense sx={{ borderTop: 1, borderBottom: 1, borderRadius: 5, left: '19%', top: '10%', zIndex: 'tooltip', width: '60%', maxWidth: '360', bgcolor: 'background.paper' }}>
         <DialogTitle sx={{ top: 5 }}>Checked Items
-          <Button sx={{ color: 'text.primary', fontWeight: 'bold' }} onClick={() => clearCheckedIngredients()}>Clear</Button>
+          <Button sx={{ display: 'flex', float: 'right', color: 'text.primary', fontWeight: 'bold', display: 'inline-flex' }} onClick={() => clearCheckedIngredients()}>Clear</Button>
         </DialogTitle>
         {checkedItems.map((ingredient) => {
           const labelId = `checkbox-list-secondary-label-${ingredient.ingredient_id}`;

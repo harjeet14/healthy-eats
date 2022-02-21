@@ -60,7 +60,7 @@ export default function AddToDialog(props) {
   return (
     <div>
       <Dialog onClose={handleClose} open={open}>
-        <DialogTitle sx={{ top: 5 }}>Add to ...</DialogTitle>
+        <DialogTitle >Add to ...</DialogTitle>
         <List sx={{ top: 15, pt: 0 }}>
           {dialogOptions.map((dialogOption) => (
             <ListItem button onClick={() => handleListItemClick(dialogOption)} key={dialogOption}>

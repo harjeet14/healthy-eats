@@ -10,6 +10,7 @@ $navHeight: 50px;
         height: $navHeight;
         background-color:rgb(186, 215, 215);
         align-items: center;
+       
 
         & > a {
             color: rgb(110, 0, 200);
@@ -28,6 +29,8 @@ $navHeight: 50px;
 
             &.activeRoute{
                 color:rgb(41, 144, 144);
+               
+               
               
             }
 
