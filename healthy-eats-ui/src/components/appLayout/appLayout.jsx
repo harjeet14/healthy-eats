@@ -2,7 +2,7 @@ import { Route, Routes, useNavigate, NavLink } from "react-router-dom";
 // import { OrderHistoryPage } from "../../pages/orderHistory/orderHistoryPage";
 import { HomePage } from "../../pages/home/homePage";
 import { LoginPage } from "../../pages/login/loginPage";
-// import { RecipesPage } from "../../pages/recipes/recipesPage";
+import { RecipesPage } from "../../pages/recipes/recipesPage";
 import { SavedRecipes } from "../../pages/saved/savedRecipes";
 import { SearchPage } from "../../pages/search/searchPage";
 import { AuthenticationGuard } from "../authenticationGuard";
@@ -24,7 +24,7 @@ export function AppLayout({ children }) {
     <div className="app-layout-navigation">
       <AppNavLink to="/" >{sessionStorage.sessionUserFullName}</AppNavLink>
       <AppNavLink to="/search" >Search</AppNavLink>
-      {/* <AppNavLink to="/recipes" >Recipes</AppNavLink> */}
+      <AppNavLink to="/recipes">My Recipes</AppNavLink>
 
       <AppNavLink to="/savedRecipes" >Saved</AppNavLink>
       <AppNavLink to="/shoppingList" >Shopping List</AppNavLink>
@@ -55,11 +55,11 @@ export function AppLayout({ children }) {
           </AuthenticationGuard>} />
 
 
-        {/* <Route path='/recipes'
+        <Route path='/recipes'
           element={<AuthenticationGuard>
             <RecipesPage />
           </AuthenticationGuard>} />
- */}
+
 
 
         <Route path='/savedRecipes'
