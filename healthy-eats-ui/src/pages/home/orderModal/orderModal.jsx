@@ -133,7 +133,7 @@ function MealContent({ onSelect, onDeselect, title, selectedFoods }) {
           }}
         />)}
 
-        {!selectedFoods.length && <h6>You Should Eat Something For {title}! Please serch and select</h6>}
+        {!selectedFoods.length && <h6>You Should Eat Something For {title}! Please search and select</h6>}
       </div>
     </div>
   </div>

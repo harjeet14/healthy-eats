@@ -86,7 +86,7 @@ export default function ShoppingListDialog(props) {
           );
         })}
       </List>
-      <Button onClick={submitItemsToList}>
+      <Button sx={{ color: 'text.primary', fontWeight: 'bold' }} onClick={submitItemsToList}>
         Submit
       </Button>
     </Dialog >
