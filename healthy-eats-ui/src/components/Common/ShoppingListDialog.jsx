@@ -10,7 +10,7 @@ import Dialog from '@mui/material/Dialog';
 import ListItemButton from '@mui/material/ListItemButton';
 import Checkbox from '@mui/material/Checkbox';
 import Button from '@mui/material/Button'
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import HealthyEatsApiService from '../../services/healthyEatsApiService';
 
 ShoppingListDialog.propTypes = {

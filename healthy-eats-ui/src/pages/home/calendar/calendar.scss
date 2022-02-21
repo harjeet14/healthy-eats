@@ -1,5 +1,5 @@
 .calendar {
-    // border: solid 1px gray;
+    user-select: none;
     width: 100vw;
     padding: 20px;
     display: flex;
@@ -33,7 +33,8 @@
         
         &-cell{
             border: solid 1px gray;
-            border-radius: 5px;
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
             flex: 1;
             display: flex;
             justify-content: center;

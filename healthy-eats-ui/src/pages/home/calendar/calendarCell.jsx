@@ -35,18 +35,21 @@ export function CalendarCell({ date, dayData, currentMonth, onClick }) {
                     {!!breakfasts.length &&
                         <span className="calendar-row-cell-calories">{breackfastCal}</span>
                     }
+                    {!breakfasts.length && <span> - </span>}
                 </span>
                 <span>
                     <span>&#x1F354;</span>
-                    {!!breakfasts.length &&
+                    {!!lunches.length &&
                         <span className="calendar-row-cell-calories">{lunchCal}</span>
                     }
+                    {!lunches.length && <span> - </span>}
                 </span>
                 <span>
                     <span>&#x1F355;</span>
-                    {!!breakfasts.length &&
+                    {!!diners.length &&
                         <span className="calendar-row-cell-calories">{dinerCal}</span>
                     }
+                    {!diners.length && <span> - </span>}
 
                 </span>
             </div>

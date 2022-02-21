@@ -9,19 +9,20 @@ import Checkbox from '@mui/material/Checkbox';
 import { useState, useEffect } from 'react';
 import { Button, DialogTitle } from '@mui/material';
 import HealthyEatsApiService from '../services/healthyEatsApiService';
-import { borders } from '@mui/system';
-import { Typography } from '@mui/material';
 
 export function ShoppingList() {
 
   const [unCheckedItems, setUnCheckedItems] = useState([]);
   const [checkedItems, setCheckedItems] = useState([]);
 
-  useEffect(async () => {
-    const shoppingList = await HealthyEatsApiService.getShoppingList(sessionStorage.sessionUserId);
+  useEffect(() => {
+    HealthyEatsApiService.getShoppingList(sessionStorage.sessionUserId)
+      .then((shoppingList) => {
 
-    setUnCheckedItems(shoppingList.filter(item => item.is_checked === '0'));
-    setCheckedItems(shoppingList.filter(item => item.is_checked === '1'));
+        setUnCheckedItems((shoppingList || []).filter(item => item.is_checked === '0'));
+        setCheckedItems((shoppingList || []).filter(item => item.is_checked === '1'));
+
+      });
   }, []);
 
   const handleToggle = async (ingredient, check) => {
