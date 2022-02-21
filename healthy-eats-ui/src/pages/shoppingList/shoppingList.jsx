@@ -8,7 +8,8 @@ import ListItemButton from '@mui/material/ListItemButton';
 import Checkbox from '@mui/material/Checkbox';
 import { useState, useEffect } from 'react';
 import { Button, DialogTitle } from '@mui/material';
-import HealthyEatsApiService from '../services/healthyEatsApiService';
+import HealthyEatsApiService from '../../services/healthyEatsApiService';
+import './shoppingList.scss'
 
 export function ShoppingList() {
 
@@ -67,7 +68,7 @@ export function ShoppingList() {
   };
 
   return (
-    <div>
+    <div className="shoppingList">
       <List dense sx={{ borderTop: 1, borderBottom: 1, borderRadius: 5, left: '19%', margin: '50', zIndex: 'tooltip', width: '60%', maxWidth: '360', bgcolor: 'background.paper' }}>
         <DialogTitle sx={{ top: '15%' }}>Shopping List</DialogTitle>
         {unCheckedItems.map((ingredient) => {
@@ -100,7 +101,7 @@ export function ShoppingList() {
 
       <List dense sx={{ borderTop: 1, borderBottom: 1, borderRadius: 5, left: '19%', top: '10%', zIndex: 'tooltip', width: '60%', maxWidth: '360', bgcolor: 'background.paper' }}>
         <DialogTitle sx={{ top: 5 }}>Checked Items
-          <Button sx={{ display: 'flex', float: 'right', color: 'text.primary', fontWeight: 'bold', display: 'inline-flex' }} onClick={() => clearCheckedIngredients()}>Clear</Button>
+          <Button sx={{ float: 'right', color: 'text.primary', fontWeight: 'bold', display: 'inline-flex' }} onClick={() => clearCheckedIngredients()}>Clear</Button>
         </DialogTitle>
         {checkedItems.map((ingredient) => {
           const labelId = `checkbox-list-secondary-label-${ingredient.ingredient_id}`;

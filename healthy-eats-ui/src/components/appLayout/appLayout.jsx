@@ -6,7 +6,7 @@ import { RecipesPage } from "../../pages/recipes/recipesPage";
 import { SavedRecipes } from "../../pages/saved/savedRecipes";
 import { SearchPage } from "../../pages/search/searchPage";
 import { AuthenticationGuard } from "../authenticationGuard";
-import { ShoppingList } from "../../pages/ShoppingList";
+import { ShoppingList } from "../../pages/shoppingList/shoppingList";
 import './appLayout.scss'
 
 
