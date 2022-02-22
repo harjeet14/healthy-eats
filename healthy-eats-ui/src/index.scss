@@ -3,6 +3,17 @@
   margin: 0;
   padding: 0;
 }
+
+::-webkit-scrollbar{
+  width: 10px;
+  height: 10px;
+  border: solid 1px  rgb(220, 220, 220);
+ }
+
+::-webkit-scrollbar-thumb {
+  background-color: darkgray;
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',

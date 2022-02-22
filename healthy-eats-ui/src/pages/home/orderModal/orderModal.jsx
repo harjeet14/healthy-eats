@@ -42,6 +42,7 @@ export function OrderModal({ dayData, selectedDate, onClose, onSubmit }) {
           onSelect={(items) => { setBreakfast(items); }}
           onDeselect={(items) => { setBreakfast(items); }}
         ></MealContent>
+        <br />
         <hr />
 
         <MealContent
@@ -50,6 +51,7 @@ export function OrderModal({ dayData, selectedDate, onClose, onSubmit }) {
           onSelect={(items) => { setLunch(items); }}
           onDeselect={(items) => { setLunch(items); }}
         ></MealContent>
+        <br />
         <hr />
 
         <MealContent
@@ -72,7 +74,12 @@ export function OrderModal({ dayData, selectedDate, onClose, onSubmit }) {
 function MealContent({ onSelect, onDeselect, title, selectedFoods }) {
   selectedFoods = selectedFoods ?? [];
 
+  const selectedFoodIds = selectedFoods.map(x => x.foodId);
+
   const [available, setAvailable] = useState([]);
+
+
+  const availableFood = available.filter(it => !selectedFoodIds.includes(it.foodId))
 
   const cal = selectedFoods.reduce((a, i) => a + i.calories, 0);
   const mealCal = Math.trunc((cal) * 1000) / 1000;
@@ -91,6 +98,7 @@ function MealContent({ onSelect, onDeselect, title, selectedFoods }) {
         onInput={(e) => {
           var val = e.target.value;
           if (val.length >= 3) {
+
             FoodService.getRecipes(val).then((res) => {
               setAvailable(res);
             });
@@ -103,7 +111,7 @@ function MealContent({ onSelect, onDeselect, title, selectedFoods }) {
     <div className="orderModal-content-body-row">
       <div className="orderModal-content-body-row-horizontalList">
 
-        {available.map((orderData) => <OrderItem key={`orderItem-${orderData.foodId}`} orderData={orderData}
+        {availableFood.map((orderData) => <OrderItem key={`orderItem-${orderData.foodId}`} orderData={orderData}
           onClick={(item) => {
             if (selectedFoods.find(x => x.foodId === item.foodId)) {
               alert("You already have it")
@@ -113,7 +121,7 @@ function MealContent({ onSelect, onDeselect, title, selectedFoods }) {
           }}
         />)}
 
-        {!available.length && <h6>Not a valid search</h6>}
+        {!availableFood.length && <h6>Please search for a different food</h6>}
 
       </div>
 
