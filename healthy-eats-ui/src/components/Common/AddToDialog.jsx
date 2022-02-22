@@ -7,7 +7,7 @@ import ListItemAvatar from '@mui/material/ListItemAvatar';
 import ListItemText from '@mui/material/ListItemText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Dialog from '@mui/material/Dialog';
-import { blue } from '@mui/material/colors';
+import { blue, grey } from '@mui/material/colors';
 import ShoppingListDialog from './ShoppingListDialog';
 import { useState } from 'react';
 import FoodService from '../../services/foodService';
@@ -60,12 +60,12 @@ export default function AddToDialog(props) {
   return (
     <div>
       <Dialog onClose={handleClose} open={open}>
-        <DialogTitle >Add to ...</DialogTitle>
-        <List sx={{ top: 15, pt: 0 }}>
+        <DialogTitle sx={{ fontWeight: 'bold', m: '1px' }}>Add to ...</DialogTitle>
+        <List sx={{ m: 3, pt: 0 }}>
           {dialogOptions.map((dialogOption) => (
             <ListItem button onClick={() => handleListItemClick(dialogOption)} key={dialogOption}>
               <ListItemAvatar>
-                <Avatar sx={{ bgcolor: blue[100], color: blue[600] }}>
+                <Avatar sx={{ bgcolor: grey[300], color: grey[600] }}>
                   {dialogOption === 'Planner' ? <DateRangeIcon /> : <PlaylistAddIcon />}
                 </Avatar>
               </ListItemAvatar>
@@ -73,7 +73,7 @@ export default function AddToDialog(props) {
             </ListItem>
           ))}
         </List>
-      </Dialog>
+      </Dialog >
       <AddToPlannerDialog
         open={isAddToPlannerDialogOpen}
         onClose={handleAddToPlannerDialogClose}
@@ -86,6 +86,6 @@ export default function AddToDialog(props) {
         recipeIngredients={recipeIngredients}
         setIsShoppingListDialogOpen={setIsShoppingListDialogOpen}
       />
-    </div>
+    </div >
   );
 }

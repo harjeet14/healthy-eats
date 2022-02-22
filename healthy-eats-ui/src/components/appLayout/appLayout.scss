@@ -29,20 +29,17 @@ $navHeight: 50px;
 
             &.activeRoute{
                 color:rgb(41, 144, 144);
-               
-               
-              
             }
 
             &:hover{
                 text-shadow: 0px 0px 2px rgb(81, 78, 78);
             }
-            
         }
     }
 
     &-content {
         background-color: whitesmoke;
-        min-height: calc(100vh - 50px);
+        height: calc(100% - $navHeight);
+        overflow-y: auto;
     }
 }
