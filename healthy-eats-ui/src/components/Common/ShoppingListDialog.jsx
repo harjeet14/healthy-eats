@@ -12,6 +12,7 @@ import Checkbox from '@mui/material/Checkbox';
 import Button from '@mui/material/Button'
 import { useState } from 'react';
 import HealthyEatsApiService from '../../services/healthyEatsApiService';
+import { blue, grey } from '@mui/material/colors';
 
 ShoppingListDialog.propTypes = {
   onClose: PropTypes.func.isRequired,
@@ -57,12 +58,12 @@ export default function ShoppingListDialog(props) {
 
   return (
     <Dialog onClose={onClose} open={open}>
-      <DialogTitle>Shopping List</DialogTitle>
+      <DialogTitle sx={{ fontWeight: 'bold' }}>Shopping List</DialogTitle>
       <List dense sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
         {recipeIngredients.map((ingredient) => {
           const labelId = `checkbox-list-secondary-label-${ingredient.id}`;
           return (
-            <ListItem
+            <ListItem sx={{ bgcolor: grey[100] }}
               key={ingredient.id}
               secondaryAction={
                 <Checkbox

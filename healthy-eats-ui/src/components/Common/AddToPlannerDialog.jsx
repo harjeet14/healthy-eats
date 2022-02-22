@@ -55,8 +55,9 @@ export default function AddToPlannerDialog(props) {
   }
 
   return (
+
     <Dialog onClose={onClose} open={open}>
-      <DialogTitle>Add Recipe to Planner</DialogTitle>
+      <DialogTitle sx={{ fontWeight: 'bold' }}>Add Recipe to Planner</DialogTitle>
       <LocalizationProvider dateAdapter={AdapterDateFns}>
         <DatePicker
           label="Pick a date"
@@ -79,5 +80,6 @@ export default function AddToPlannerDialog(props) {
         Submit
       </Button>
     </Dialog >
+
   );
 }
