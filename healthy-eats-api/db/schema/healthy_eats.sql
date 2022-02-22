@@ -40,7 +40,6 @@ CREATE TABLE created_recipes(
   recipe_title VARCHAR(255) NOT NULL,
   recipe_description TEXT NOT NULL,
   recipe_instructions TEXT NOT NULL,
-  recipe_price numeric,
   recipe_image_urls VARCHAR(255) NOT NULL,
   created_at date NOT NULL,
   avg_rating SMALLINT NOT NULL DEFAULT 0

@@ -44,7 +44,6 @@ export function NewRecipe(props) {
     
     const addIngredients=(e)=>{
         e.preventDefault()
-        console.log("ingredients added",ingredient, ingredientServings,ingredientUnit)
         setRecipeIngredients([
             ...recipeIngredients,
             {
@@ -54,7 +53,11 @@ export function NewRecipe(props) {
 
             }
         ])
-        console.log("recipe ingredients are:",recipeIngredients)
+        setIngredient("")
+        setIngredientServings("1")
+        setIngredientUnit("Cups")
+
+
     }
 
     const deleteIngredient=(e)=>{
@@ -70,7 +73,11 @@ export function NewRecipe(props) {
     return(
         <div className="overlay">
             <div className="modal">
-                <h1>Add a new recipe</h1>
+                <div className="exit-button">
+                 <button onClick={props.handleClick}>X</button> 
+                </div>
+
+                    <h2 >Add a new recipe</h2>
                 <form> 
                     <label>Recipe Title</label>
                     <input  
@@ -152,7 +159,6 @@ export function NewRecipe(props) {
                    <button onClick={addRecipe}>Add Recipe</button>
                 </form>
                 
-                <button onClick={props.handleClick}>close</button> 
             </div>
         </div>
     )

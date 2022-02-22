@@ -27,6 +27,7 @@ export function RecipesPage() {
         let newRecipes2  = newRecipes.map((newRecipe)=>{
           return(
             {...newRecipe,
+              foodTitle:newRecipe.recipe_title,
               foodImage: newRecipe.recipe_image_urls
             }
           )
@@ -53,7 +54,7 @@ export function RecipesPage() {
               <RecipeCard
                 onClick={async (food) => {
 
-                  setSelectedRecipe({...recipe, image: recipe.foodImage, summary: recipe.recipe_description, instructions: recipe.recipe_instructions});
+                  setSelectedRecipe({...recipe, title:recipe.recipe_title, image: recipe.foodImage, summary: recipe.recipe_description, instructions: recipe.recipe_instructions});
                 }}
                 key={`recipe-${recipe.foodId}`}
                 recipe={recipe}
