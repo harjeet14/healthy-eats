@@ -1,10 +1,10 @@
 import HealthyEatsApiService from '../../services/healthyEatsApiService';
 import RecipeCard from "../../components/recipes/recipeCard";
 import { RecipeInfoModal } from "../recipeInfoModal/recipeInfoModal";
-import { Grid, Container } from "@mui/material";
+import { Grid, Container, Button } from "@mui/material";
 import "../recipes/recipesPage.scss"
 import { useEffect, useState } from 'react';
-import { NewRecipe } from '../newRecipe/newRecipe';
+import { NewRecipe } from '../newRecipe/NewRecipe';
 
 
 export function RecipesPage() {
@@ -31,8 +31,6 @@ export function RecipesPage() {
           }
         )
       })
-      console.log("new recipes", newRecipes)
-      console.log("new recipes2", newRecipes2)
 
       setRecipes(newRecipes2)
 
@@ -42,7 +40,11 @@ export function RecipesPage() {
 
   return (
     <div className="recipesPage">
-      <Container>
+      <Container> 
+      <div className="button-div">
+        <Button variant="contained" onClick={handleNewRecipeClick}>Add a new recipe!</Button>
+        
+      </div>
 
         <Grid container marginX={20} spacing={{ lg: 2 }} columns={{ lg: 4 }} >
           {recipes.map((recipe, index) =>
@@ -53,7 +55,7 @@ export function RecipesPage() {
                   setSelectedRecipe({...recipe, title:recipe.recipe_title, image: recipe.foodImage, summary: recipe.recipe_description, instructions: recipe.recipe_instructions});
                 }}
                 key={`recipe-${recipe.foodId}`}
-                recipe={recipe}
+                recipe={{...recipe, foodTitle: recipe.recipe_title}}
               />
             </Grid>
           )}
@@ -64,7 +66,6 @@ export function RecipesPage() {
           setSelectedRecipe(null);
         }} />
       }
-      <button onClick={handleNewRecipeClick}>Or add your own!</button>
       {isNewRecipeActive && <NewRecipe handleClick={() => { setIsNewRecipeActive(false) }} />}
     </div>
   );

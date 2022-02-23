@@ -1,8 +1,9 @@
 import axios from 'axios'
 import { useState, useEffect } from 'react'
-import styles from '../newRecipe/NewRecipe.scss'
 import HealthyEatsApiService from '../../services/healthyEatsApiService';
 import foodService from '../../services/foodService';
+import styles from '../newRecipe/newRecipe.scss'
+import { Grid, Container, Button } from "@mui/material";
 
 
 
@@ -76,8 +77,10 @@ export function NewRecipe(props) {
                 <div className="exit-button">
                  <button onClick={props.handleClick}>X</button> 
                 </div>
+                    <div className="header">
+                        <h2> Add a new recipe!</h2>
 
-                    <h2 >Add a new recipe</h2>
+                    </div>
                 <form> 
                     <label>Recipe Title</label>
                     <input  
@@ -142,7 +145,6 @@ export function NewRecipe(props) {
                                     <p>{ingredient.ingredient}</p>
                                     <p>{ingredient.ingredientServings}</p>
                                     <p>{ingredient.ingredientUnit}</p>
-                                    
                                     <button className = "delete-button" value={ingredient.ingredient} onClick={(e)=>deleteIngredient(e)}>X</button>
                                 </div>
                             );
@@ -156,7 +158,7 @@ export function NewRecipe(props) {
                     onChange={(e) => setRecipeServings(e.target.value)}
                     />
                     
-                   <button onClick={addRecipe}>Add Recipe</button>
+                   <Button  sx={{ m: 4 }} variant="contained" className="add-recipe-button" onClick={addRecipe}>Add Recipe</Button>
                 </form>
                 
             </div>
