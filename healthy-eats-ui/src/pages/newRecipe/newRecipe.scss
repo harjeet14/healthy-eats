@@ -31,6 +31,8 @@
             justify-content: flex-start;
             align-items: center;
 
+           
+
             .form-ingredients{
                 display: flex;
                 flex-direction: row;
@@ -63,7 +65,11 @@
     }
     
 }
+textarea{
+    height:64px;
+    width:400px;
 
+};
 .header{
     display: flex;
     flex-direction: row;
@@ -71,6 +77,15 @@
     align-items: center;
     margin: 0px 0px 20px 0px ;
     
+}
+
+.add-ingredient-button{
+    width:20px;
+    margin-left: 10px;
+    border-radius: 10px;
+    background-color: rgb(162, 215, 195);
+    box-shadow: black;
+
 }
 .header-item{
     margin:50px;
@@ -101,6 +116,7 @@ label{
     margin: 10px 0px 0px 0px;
 }
 
+
 .ingredients-list{
     display: flex;
     flex-direction: column;
@@ -110,7 +126,6 @@ label{
 
 }
 .ingredient{
-    box-sizing: border-box;
     display: flex;
     flex-direction: row;
     justify-content: space-around;
@@ -118,10 +133,12 @@ label{
     height: 25px;
     width: 250px;
     margin:5px;
-    background-color: rgb(21, 252, 159);
+    background-color: rgb(162, 215, 195);
     border-radius: 10px;
     padding:5px;
     color: black;
+    border:2px solid  black;
+
 }
 
 .delete-button{
@@ -129,7 +146,7 @@ label{
     margin: 0px;
     background:none;
     border: none;
-    color:black;
+    color: black;
 }
 
   

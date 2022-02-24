@@ -42,7 +42,7 @@ export function RecipesPage() {
     <div className="recipesPage">
       <Container> 
       <div className="button-div">
-        <Button variant="contained" onClick={handleNewRecipeClick}>Add a new recipe!</Button>
+        <Button style={{backgroundColor: "#21b6ae"}} variant="contained" onClick={handleNewRecipeClick}>Add a new recipe!</Button>
         
       </div>
 
@@ -56,6 +56,7 @@ export function RecipesPage() {
                 }}
                 key={`recipe-${recipe.foodId}`}
                 recipe={{...recipe, foodTitle: recipe.recipe_title}}
+                isDeletable={true}
               />
             </Grid>
           )}

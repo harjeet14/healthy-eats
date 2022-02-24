@@ -10,12 +10,12 @@ import { Grid, Container, Button } from "@mui/material";
 
 export function NewRecipe(props) {
 
-    const [recipeTitle, setRecipeTitle] = useState("")
-    const [recipeDescription, setRecipeDescription] = useState("")
-    const [recipeInstructions, setRecipeInstructions] = useState("")
+    const [recipeTitle, setRecipeTitle] = useState("Tomato Salad")
+    const [recipeDescription, setRecipeDescription] = useState("Our cookbook, Love Real Food, is here! We have a surplus of tomatoes this summer, and it’s glorious.")
+    const [recipeInstructions, setRecipeInstructions] = useState(" ½ cup chopped red onion (about ½ small red onion) 1 pint (12 ounces or 2 cups) cherry tomatoes, halved 1 pound additional tomatoes (about 1 large, 2 medium or 3 small), cut into bite-sized wedges")
 
-    const [recipeImageUrls, setRecipeImageUrls] = useState("")
-    const [recipeIngredients, setRecipeIngredients] = useState([])
+    const [recipeImageUrls, setRecipeImageUrls] = useState("https://cookieandkate.com/images/2020/08/tomato-cucumber-salad-recipe-3-768x1154.jpg")
+    const [recipeIngredients, setRecipeIngredients] = useState([{ingredient: "Tomato", ingredientServings:"2", ingredientUnit: "Cups"}, {ingredient: " Potato", ingredientServings:"2", ingredientUnit: "Cups"}]);
     const [ingredient, setIngredient] = useState("")
     const [ingredientServings, setIngredientServings] = useState("1")
     const [ingredientUnit, setIngredientUnit] = useState("Cups")
@@ -72,10 +72,10 @@ export function NewRecipe(props) {
 
 
     return(
-        <div className="overlay">
+        <div className="overlay" >
             <div className="modal">
                 <div className="exit-button">
-                 <button onClick={props.handleClick}>X</button> 
+                 <button onClick={props.handleClick}>Close</button> 
                 </div>
                     <div className="header">
                         <h2> Add a new recipe!</h2>
@@ -89,13 +89,14 @@ export function NewRecipe(props) {
                     onChange={(e) => setRecipeTitle(e.target.value)}
                     />
                     <label>Description</label>
-                    <input  
+                    <textarea
+                    className="input-description" 
                     type="text"
                     value={recipeDescription}
                     onChange={(e) => setRecipeDescription(e.target.value)}
                     />
                     <label>Instructions</label>
-                    <input  
+                    <textarea  
                     type="text"
                     value={recipeInstructions}
                     onChange={(e) => setRecipeInstructions(e.target.value)}
@@ -134,7 +135,7 @@ export function NewRecipe(props) {
                                 <option value="mL">mL</option>
                                 <option value="L">L</option>
                             </select>
-                    <button onClick={addIngredients}>+</button>
+                    <button className= "add-ingredient-button"onClick={addIngredients}>+</button>
                     </div>
 
                     <div className = "ingredients-list">
@@ -158,7 +159,7 @@ export function NewRecipe(props) {
                     onChange={(e) => setRecipeServings(e.target.value)}
                     />
                     
-                   <Button  sx={{ m: 4 }} variant="contained" className="add-recipe-button" onClick={addRecipe}>Add Recipe</Button>
+                   <Button style={{backgroundColor: "#21b6ae"}}  sx={{ m: 4 }} variant="contained" className="add-recipe-button" onClick={addRecipe}>Add Recipe</Button>
                 </form>
                 
             </div>
