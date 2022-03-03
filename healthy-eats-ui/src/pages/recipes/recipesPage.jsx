@@ -4,7 +4,7 @@ import { RecipeInfoModal } from "../recipeInfoModal/recipeInfoModal";
 import { Grid, Container, Button } from "@mui/material";
 import "../recipes/recipesPage.scss"
 import { useEffect, useState } from 'react';
-import { NewRecipe } from '../newRecipe/NewRecipe';
+import { NewRecipe } from '../newRecipe/newRecipe';
 
 
 export function RecipesPage() {
@@ -18,7 +18,7 @@ export function RecipesPage() {
     setIsNewRecipeActive(true)
   }
 
- 
+
   useEffect(() => {
     async function fetchData() {
 
@@ -40,11 +40,11 @@ export function RecipesPage() {
 
   return (
     <div className="recipesPage">
-      <Container> 
-      <div className="button-div">
-        <Button style={{backgroundColor: "#21b6ae"}} variant="contained" onClick={handleNewRecipeClick}>Add a new recipe!</Button>
-        
-      </div>
+      <Container>
+        <div className="button-div">
+          <Button style={{ backgroundColor: "#21b6ae" }} variant="contained" onClick={handleNewRecipeClick}>Add a new recipe!</Button>
+
+        </div>
 
         <Grid container marginX={20} spacing={{ lg: 2 }} columns={{ lg: 4 }} >
           {recipes.map((recipe, index) =>
@@ -52,10 +52,10 @@ export function RecipesPage() {
               <RecipeCard
                 onClick={async (food) => {
 
-                  setSelectedRecipe({...recipe, title:recipe.recipe_title, image: recipe.foodImage, summary: recipe.recipe_description, instructions: recipe.recipe_instructions});
+                  setSelectedRecipe({ ...recipe, title: recipe.recipe_title, image: recipe.foodImage, summary: recipe.recipe_description, instructions: recipe.recipe_instructions });
                 }}
                 key={`recipe-${recipe.foodId}`}
-                recipe={{...recipe, foodTitle: recipe.recipe_title}}
+                recipe={{ ...recipe, foodTitle: recipe.recipe_title }}
                 isDeletable={true}
               />
             </Grid>
