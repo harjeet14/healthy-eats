@@ -1,14 +1,16 @@
 # Light house final project ***(Haelty Eats)***
 
   # Login 
-  !["login.png"](https://github.com/harjeet14/scheduler/blob/master/Docss/createApp.png)
-  # Edit appointments
-  !["editApp.png"](https://github.com/harjeet14/scheduler/blob/master/Docss/editApp.png)
-  # Delete appointments
-  !["DeleteApp.png"](https://github.com/harjeet14/scheduler/blob/master/Docss/DeleteApp.png)
-  # Error if its not able to save appointment
-  !["error.png"](https://github.com/harjeet14/scheduler/blob/master/Docss/error.png)
-  ## Setup
+  !["login.png"](https://github.com/harjeet14/healthy-eats/blob/main/healthy-eats-ui/src/Docs/login.png)
+  # Search Recipes
+  !["search recipes.png"](https://github.com/harjeet14/healthy-eats/blob/main/healthy-eats-ui/src/Docs/search%20recipes.png)
+  # Add to Planner
+  !["AddToPlanner.png"](https://github.com/harjeet14/healthy-eats/blob/main/healthy-eats-ui/src/Docs/RecipeAddToPlanner.png)
+  # Add Ingridients To Shopping List
+  !["addToShoppingListIngridients.png"](https://github.com/harjeet14/healthy-eats/blob/main/healthy-eats-ui/src/Docs/addToShoppingListINgridients.png)
+  # Add Ingridients To Shopping List
+  !["ShoppingList.png"](https://github.com/harjeet14/healthy-eats/blob/main/healthy-eats-ui/src/Docs/shoppingList.png)  
+## Setup
 ## Available Scripts
 
 In the project directory, you can run:
