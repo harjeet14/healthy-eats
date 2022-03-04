@@ -1,4 +1,4 @@
-# Light house final project ***(Haelty Eats)***
+# ***(Healthy Eats)***
 
   # Login 
   !["login.png"](https://github.com/harjeet14/healthy-eats/blob/main/healthy-eats-ui/src/Docs/login.png)
