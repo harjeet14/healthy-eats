@@ -6,9 +6,9 @@
   !["search recipes.png"](https://github.com/harjeet14/healthy-eats/blob/main/healthy-eats-ui/src/Docs/search%20recipes.png)
   # Add to Planner
   !["AddToPlanner.png"](https://github.com/harjeet14/healthy-eats/blob/main/healthy-eats-ui/src/Docs/RecipeAddToPlanner.png)
-  # Add Ingridients To Shopping List
+  # Add Ingredients To Shopping List
   !["addToShoppingListIngridients.png"](https://github.com/harjeet14/healthy-eats/blob/main/healthy-eats-ui/src/Docs/addToShoppingListINgridients.png)
-  # Add Ingridients To Shopping List
+  # Add Ingredients To Shopping List
   !["ShoppingList.png"](https://github.com/harjeet14/healthy-eats/blob/main/healthy-eats-ui/src/Docs/shoppingList.png)  
 ## Setup
 ## Available Scripts
